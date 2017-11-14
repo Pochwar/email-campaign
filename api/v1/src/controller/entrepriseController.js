@@ -45,8 +45,10 @@ export default class EntrepriseController
     {
         // Return promise
     }
-    addCampaign(entrepriseId, campaignId)
+    addCampaign(req, res)
     {
-        // Return promise
+        this.entrepriseHandler.addCampaign()
+            .then(entreprises => res.json(entreprises))
+            .catch(err => reject(err))
     }
 }
