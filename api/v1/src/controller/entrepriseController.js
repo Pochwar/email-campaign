@@ -39,7 +39,17 @@ export default class EntrepriseController
     }
     deleteEntreprises(id)
     {
-        // Return promise
+        if(!this.eV.checkId(req.body.id))
+        {
+            this.EntrepriseHandler.deleteEntreprise(req.body.id).then(result =>
+            {
+                res.status(this.status.ok).json(result);
+            }).catch(e => console.log(e));
+        }
+        else
+        {
+            res.status(this.status.internalServerError).json({message: "Oops something gone wrong"});
+        }
     }
     removeCampaign(entrepriseId, campaignId)
     {
