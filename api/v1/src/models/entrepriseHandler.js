@@ -18,24 +18,34 @@ export default class entrepriseHandler {
         });
     }
 
-    getEntreprise(id)
+    getEntreprisesById(id)
+    {
+        // Return promise
+    }
+    postEntreprises(array)
     {
         // Return promise
     }
 
-    postEntreprise(array)
+    putEntreprises(id)
     {
         // Return promise
     }
 
-    putEntreprise(id, array)
+    removeEntreprises(id)
     {
         // Return promise
     }
-
-    killEntreprise(id)
+    deleteEntreprises(id)
     {
         // Return promise
     }
-
+    removeCampaign(entrepriseId, campaignId)
+    {
+        // Return promise
+    }
+    addCampaign(entrepriseId, campaignId)
+    {
+        // Return promise
+    }
 }
