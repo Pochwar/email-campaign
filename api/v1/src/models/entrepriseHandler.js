@@ -43,7 +43,11 @@ export default class entrepriseHandler {
     }
     deleteEntreprises(id)
     {
-        // Return promise
+        return new Promise((resolve, reject) =>
+        {
+            this.EntrepriseModel.remove({'_id': id}).then(result => resolve(result))
+                .catch(e => reject(e));
+        });
     }
     removeCampaign(entrepriseId, campaignId)
     {
@@ -51,6 +55,15 @@ export default class entrepriseHandler {
     }
     addCampaign(entrepriseId, campaignId)
     {
-        // Return promise
+        return new Promise((resolve, reject) =>
+        {
+            this.getEntreprisesById(entrepriseId).then(entreprises =>
+            {
+                if(!_.isNull(campaignId))
+                    entreprises.campaign.push(campaignId);
+                entreprises.save();
+                resolve(entreprises);
+            }).catch(err => reject(err));
+        })
     }
 }
