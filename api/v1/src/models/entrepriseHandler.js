@@ -20,7 +20,12 @@ export default class entrepriseHandler {
 
     getEntreprisesById(id)
     {
-        // Return promise
+        return new Promise((resolve, reject) =>
+        {
+            this.EntrepriseModel.find({"id": id})
+                .then(entreprises => resolve(entreprises))
+                .catch(err => reject(err));
+        });
     }
     postEntreprises(array)
     {
