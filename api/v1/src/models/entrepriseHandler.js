@@ -57,7 +57,7 @@ export default class entrepriseHandler {
         // Return promise
     }
 
-    private static checkArrayAndModifyEntreprise(entreprise, array) {
+    static checkArrayAndModifyEntreprise(entreprise, array) {
         if (!_.isNull(array.email))
             entreprise.email = array.email;
 
