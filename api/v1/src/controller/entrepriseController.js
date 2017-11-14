@@ -27,11 +27,6 @@ export default class EntrepriseController
             .then(entreprise => res.json(entreprise))
             .catch(err => res.json(err))
     }
-    
-    postEntreprises(array)
-    {
-        // Return promise
-    }
 
     putEntreprises(id)
     {
