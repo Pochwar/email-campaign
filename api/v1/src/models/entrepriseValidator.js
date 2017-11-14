@@ -1,7 +1,7 @@
 import validator from "validator";
 import _ from "underscore";
 
-export default class kittenIntegrityValidator
+export default class EntrepriseValidator
 {
     constructor()
     {
