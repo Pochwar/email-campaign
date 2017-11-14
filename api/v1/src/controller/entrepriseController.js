@@ -28,6 +28,7 @@ export default class EntrepriseController
             .catch(err => this.sendJsonResponse(res, this.httpStatusService.internalServerError, err));
     }
 
+
     putEntreprises(req, res) {
         const id = req.params.id;
         let array = this.setArrayFromBody(req.body);
@@ -50,5 +51,29 @@ export default class EntrepriseController
         array.url_picture = (!_.isNull(body.url_picture)) ? body.url_picture : null;
         array.campaign = (!_.isNull(body.campaign)) ? body.campaign : null;
         return array
+    }
+
+    putEntreprises(id)
+    {
+        // Return promise
+    }
+
+    removeEntreprises(id)
+    {
+        // Return promise
+    }
+    deleteEntreprises(id)
+    {
+        // Return promise
+    }
+    removeCampaign(entrepriseId, campaignId)
+    {
+        // Return promise
+    }
+    addCampaign(req, res)
+    {
+        this.entrepriseHandler.addCampaign()
+            .then(entreprises => res.json(entreprises))
+            .catch(err => reject(err))
     }
 }
