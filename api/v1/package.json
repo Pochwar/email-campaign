@@ -12,6 +12,7 @@
     "node-yaml-config": "0.0.4",
     "twig": "^1.10.4",
     "underscore": "^1.8.3",
+    "uuid": "^3.1.0",
     "validator": "^7.0.0"
   },
   "devDependencies": {
