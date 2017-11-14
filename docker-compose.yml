@@ -1,0 +1,21 @@
+version: "2"
+services:
+  node:
+    image: "node:8"
+    user: "node"
+    working_dir: /home/node/app
+    environment:
+      - NODE_ENV=production
+    volumes:
+      - ./api/v1:/home/node/app
+    command: bash -c "npm install && npm run build && npm start"
+    depends_on:
+      - mongo
+    ports:
+      - "3000:3000"
+
+  mongo:
+    image: mongo:latest
+    ports:
+      - "27017:27017"
+    restart: always
