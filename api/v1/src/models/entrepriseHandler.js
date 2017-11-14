@@ -46,6 +46,15 @@ export default class entrepriseHandler {
     }
     addCampaign(entrepriseId, campaignId)
     {
-        // Return promise
+        return new Promise((resolve, reject) =>
+        {
+            this.getEntreprisesById(entrepriseId).then(entreprises =>
+            {
+                if(!_.isNull(campaignId))
+                    entreprises.campaign.push(campaignId);
+                entreprises.save();
+                resolve(entreprises);
+            }).catch(err => reject(err));
+        })
     }
 }
