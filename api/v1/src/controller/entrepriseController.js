@@ -19,13 +19,13 @@ export default class EntrepriseController
             .then(entreprise => res.json(entreprise))
             .catch(err => res.json(err))
     }
-    getEntreprisesById(id)
-    {
-        // Return promise
-    }
-    postEntreprises(array)
-    {
-        // Return promise
+
+    getEntrepriseById(req, res) {
+        const id = req.params.id;
+
+        this.entrepriseHandler.getEntreprise(id)
+            .then(entreprise => res.json(entreprise))
+            .catch(err => res.json(err))
     }
 
     putEntreprises(id)
