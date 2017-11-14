@@ -1,4 +1,4 @@
-ProjectName:
+default:
     dbConfig:
         host: "localhost"
         port: "27017"
