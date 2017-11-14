@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" charset="utf-8">
+    <title>Adopter un chat</title>
+    <style type="text/css">
+        body
+        {
+            background-color: #FFA;
+        }
+
+        p
+        {
+            margin: 0;
+            padding: 0;
+        }
+
+        #monForm
+        {
+            width: 60%;
+        }
+
+        #monForm p
+        {
+            margin: 2px 0;
+        }
+
+        /* fieldset , legend */
+        #monForm fieldset
+        {
+            margin-bottom: 10px;
+            border: #CCC 1px solid;
+        }
+
+        #monForm fieldset:hover
+        {
+            background-color: #FFF;
+        }
+
+        #monForm fieldset legend
+        {
+            padding: 0 10px;
+            border-left: #CCC 1px solid;
+            border-right: #CCC 1px solid;
+            font-size: 1.2em;
+            color: #999;
+        }
+
+        /* Label */
+        #monForm label
+        {
+            background-color: #FFCC66;
+            display: block;
+            width: 39%;
+            float: left;
+            padding-right: 1%;
+            text-align: right;
+            letter-spacing: 1px;
+        }
+
+        #monForm label:hover
+        {
+            font-weight: bold;
+        }
+
+        #monForm .form_label_nostyle
+        {
+            background: none;
+        }
+
+        /* Input */
+        #monForm input, #monForm select
+        {
+            margin-left: 1%;
+            width: 58%;
+            border: #CCC 1px solid;
+        }
+
+        #monForm input:hover, #monForm select:hover, #monForm input:focus, #monForm select:focus
+        {
+            border: #999 1px solid;
+            background-color: #DDEEFF;
+        }
+
+        #monForm .form_input_day_month
+        {
+            width: 3%;
+        }
+
+        #monForm .form_input_year
+        {
+            width: 6%;
+        }
+    </style>
+</head>
+<body>
+<img src="http://localhost:3000/image/header.gif" alt="">
+<h1>UN CHAT SUFFIT</h1>
+<h1>Adopter un chat</h1>
+<form id="monForm" action="#" method="post">
+    <fieldset>
+        <legend>Créer un chaton à adopter</legend>
+        <p>
+            <label for="form_firstname">Nom : </label>
+            <input type="text" id="form_firstname" name="name" />
+        </p>
+        <p>
+            <label for="form_lastname">Couleur : </label>
+            <input type="text" id="form_lastname" name="color" />
+        </p>
+        <p>
+            <label for="form_gender">Qualité n°1 : </label>
+            <input type="text" id="form_gender" name="primaryQuality" />
+        </p>
+        <p>
+            <label for="form_birthday">Qualité n°2 : </label>
+            <input type="text" id="form_birthday" name="secondQuality" />
+        </p>
+        <p>
+            <label for="form_address">Défaut principal: </label>
+            <input type="text" id="form_address" name="primaryDefault" />
+        </p>
+        <p>
+            <label for="form_postal_code">Marque de croquettes préférée : </label>
+            <input type="text" id="form_postal_code" name="kibbles" />
+        </p>
+    </fieldset>
+
+    <p>
+        <label class="form_label_nostyle">&nbsp;</label>
+        <input type="submit" name="submit" />
+    </p>
+</form>
+<br><br>
+<div id="kittenBox"></div>
+
+<a href="showNonAdopted">Voir chats non adoptés</a> | <a href="showAll">Voir tous les chats</a></p>
+</body>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<script src="http://localhost:3000/js/kitten.js"></script>
+</html>

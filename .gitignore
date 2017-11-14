@@ -1,0 +1,5 @@
+.idea
+api/v1/node_modules
+api/v1/config/config.yml
+api/v1/doc
+api/v1/build/

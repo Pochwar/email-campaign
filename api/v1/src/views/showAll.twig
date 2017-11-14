@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>Tableau html simple</title>
+</head>
+<body>
+<style type="text/css">
+    body
+    {
+        background-color: #FFA;
+    }
+
+    p
+    {
+        margin: 0;
+        padding: 0;
+    }
+
+    #monForm
+    {
+        width: 60%;
+    }
+
+    #monForm p
+    {
+        margin: 2px 0;
+    }
+
+    /* fieldset , legend */
+    #monForm fieldset
+    {
+        margin-bottom: 10px;
+        border: #CCC 1px solid;
+    }
+
+    #monForm fieldset:hover
+    {
+        background-color: #FFF;
+    }
+
+    #monForm fieldset legend
+    {
+        padding: 0 10px;
+        border-left: #CCC 1px solid;
+        border-right: #CCC 1px solid;
+        font-size: 1.2em;
+        color: #999;
+    }
+
+    /* Label */
+    #monForm label
+    {
+        background-color: #FFCC66;
+        display: block;
+        width: 39%;
+        float: left;
+        padding-right: 1%;
+        text-align: right;
+        letter-spacing: 1px;
+    }
+
+    #monForm label:hover
+    {
+        font-weight: bold;
+    }
+
+    #monForm .form_label_nostyle
+    {
+        background: none;
+    }
+
+    /* Input */
+    #monForm input, #monForm select
+    {
+        margin-left: 1%;
+        width: 58%;
+        border: #CCC 1px solid;
+    }
+
+    #monForm input:hover, #monForm select:hover, #monForm input:focus, #monForm select:focus
+    {
+        border: #999 1px solid;
+        background-color: #DDEEFF;
+    }
+
+    #monForm .form_input_day_month
+    {
+        width: 3%;
+    }
+
+    #monForm .form_input_year
+    {
+        width: 6%;
+    }
+</style>
+
+<body>
+<table border=1 width=50%>
+    <thead>
+    <tr><th>Nom</th><th>Sa couleur</th><th>Sa qualité n°1</th><th>Sa qualité n°2</th><th>Son principal défaut</th><th>Sa marque phare de croquettes</th><th>Disponibilité</th></tr>
+    </thead>
+    <tbody>
+    <tr>
+        <td>Minou</td><td></td>
+        <td></td><td></td>
+        <td></td><td></td>
+        <td></td>
+
+    </tr>
+    <tr>
+        <td>Deedee</td><td></td>
+        <td></td><td></td>
+        <td></td><td></td>
+        <td></td>
+    </tr>
+    <tr>
+        <td>Markis</td><td></td>
+        <td></td><td></td>
+        <td></td><td></td>
+        <td></td>
+    </tr>
+    <tr>
+        <td>Oggy</td><td></td>
+        <td></td><td></td>
+        <td></td><td></td>
+        <td></td>
+    </tr>
+    <tr>
+        <td>Krilin</td><td></td>
+        <td></td><td></td>
+        <td></td><td></td>
+        <td></td>
+    </tr>
+    </tbody>
+</table>
+
+<br>
+<span class="action"><input type="hidden" name="idPersonne" value="1" />
+     <input type="submit" name="modif" value="Adoptez-moi !" /></span>
+<p><br /><br /></p>
+<p><a href="/">Accueil</a> | <a href="showNonAdopted">Voir chats pas encore adoptés</a></p>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+</body>
+</html>
