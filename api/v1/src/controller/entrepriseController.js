@@ -19,5 +19,34 @@ export default class EntrepriseController
             .then(entreprise => res.json(entreprise))
             .catch(err => res.json(err))
     }
+    getEntreprisesById(id)
+    {
+        // Return promise
+    }
+    postEntreprises(array)
+    {
+        // Return promise
+    }
 
+    putEntreprises(id)
+    {
+        // Return promise
+    }
+
+    removeEntreprises(id)
+    {
+        // Return promise
+    }
+    deleteEntreprises(id)
+    {
+        // Return promise
+    }
+    removeCampaign(entrepriseId, campaignId)
+    {
+        // Return promise
+    }
+    addCampaign(entrepriseId, campaignId)
+    {
+        // Return promise
+    }
 }
