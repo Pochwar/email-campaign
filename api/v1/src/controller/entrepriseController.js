@@ -1,4 +1,5 @@
 import EntrepriseHandler from "../models/entrepriseHandler";
+import _ from "underscore";
 import eV from "../models/entrepriseValidator";
 
 export default class EntrepriseController
@@ -28,25 +29,21 @@ export default class EntrepriseController
             .catch(err => res.json(err))
     }
 
-    putEntreprises(id)
-    {
-        // Return promise
-    }
+    putEntreprises(req, res) {
+        const param = req.body;
+        const id = req.params.id;
 
-    removeEntreprises(id)
-    {
-        // Return promise
-    }
-    deleteEntreprises(id)
-    {
-        // Return promise
-    }
-    removeCampaign(entrepriseId, campaignId)
-    {
-        // Return promise
-    }
-    addCampaign(entrepriseId, campaignId)
-    {
-        // Return promise
+        let array = {
+            label: (!_.isNull(param.label)) ? param.label : null,
+            email: (!_.isNull(param.email)) ? param.email : null,
+            password: (!_.isNull(param.password)) ? param.password : null,
+            url_ad: (!_.isNull(param.url_ad)) ? param.url_ad : null,
+            url_picture: (!_.isNull(param.url_picture)) ? param.url_picture : null,
+            campaign: (!_.isNull(param.campaign)) ? param.campaign : null
+        };
+
+        this.entrepriseHandler.putEntreprise(id, array)
+            .then(entreprise => res.json(entreprise))
+            .catch(err => res.json(err));
     }
 }

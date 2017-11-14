@@ -55,6 +55,8 @@ export default class Server {
          * @apiSuccess {Boolean} array.kittens.isAvailable Is the kitten already adopted or not
          */
         this._app.get('/api/v1/entreprises', entrepriseController.getEntreprises.bind(entrepriseController));
+
+        this._app.put('/api/v1/entreprises/:id', entrepriseController.putEntreprises.bind(entrepriseController));
     }
 
     run()
