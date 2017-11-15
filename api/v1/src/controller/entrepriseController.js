@@ -1,6 +1,5 @@
 import EntrepriseHandler from "../models/entrepriseHandler";
 import _ from "underscore";
-import eV from "../models/entrepriseValidator";
 import HttpStatusService from "../services/httpStatusService";
 
 export default class EntrepriseController
@@ -30,7 +29,6 @@ export default class EntrepriseController
             .catch(err => that.sendJsonResponse(res, that.httpStatusService.internalServerError, err));
     }
 
-
     putEntreprises(req, res) {
         const that = this;
         const id = req.params.id;
@@ -40,11 +38,23 @@ export default class EntrepriseController
             .catch(err => that.sendJsonResponse(res, that.httpStatusService.internalServerError, err));
     }
   
+    deleteEntreprises(req, res)
+    {
+        const id = req.params.id;
+        const that = this;
+        this.entrepriseHandler.deleteEntreprises(id)
+            .then(entreprise => that.sendJsonResponse(res, that.httpStatusService.ok, entreprise))
+            .catch(err => that.sendJsonResponse(res, that.httpStatusService.internalServerError, err));
+    }
+  
    addCampaign(req, res)
    {
-       this.entrepriseHandler.addCampaign()
-           .then(entreprises => res.json(entreprises))
-           .catch(err => reject(err))
+     const entrepriseId = req.params.entrepriseId;
+     const campaignId = req.params.campaignId;
+     const that = this;
+       this.entrepriseHandler.addCampaign(entrepriseId, campaignId)
+           .then(entreprises => that.sendJsonResponse(res, that.httpStatusService.ok, entreprises))
+           .catch(err => that.sendJsonResponse(res, that.httpStatusService.internalServerError, err))
    }
 
     sendJsonResponse(res, code, content) {
@@ -61,33 +71,5 @@ export default class EntrepriseController
         array.url_picture = (!_.isNull(body.url_picture)) ? body.url_picture : null;
         array.campaign = (!_.isNull(body.campaign)) ? body.campaign : null;
         return array
-    }
-
-    putEntreprises(id)
-    {
-        // Return promise
-    }
-
-    removeEntreprises(id)
-    {
-        // Return promise
-    }
-    deleteEntreprises(req, res)
-    {
-        const id = req.params.id;
-
-        this.entrepriseHandler.deleteEntreprises(id)
-            .then(entreprise => this.sendJsonResponse(res, this.httpStatusService.ok, entreprise))
-            .catch(e => this.sendJsonResponse(res, this.httpStatusService.internalServerError, e));
-    }
-    removeCampaign(entrepriseId, campaignId)
-    {
-        // Return promise
-    }
-    addCampaign(req, res)
-    {
-        this.entrepriseHandler.addCampaign()
-            .then(entreprises => res.json(entreprises))
-            .catch(err => reject(err))
     }
 }

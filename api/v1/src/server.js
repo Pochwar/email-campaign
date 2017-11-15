@@ -2,8 +2,8 @@ import path from 'path';
 import _ from 'underscore';
 import express from 'express';
 import bodyParser from 'body-parser';
-
 import EntrepriseController from './controller/entrepriseController';
+import MockerController from './controller/mockerController';
 
 
 export default class Server {
@@ -32,9 +32,12 @@ export default class Server {
         this.port = port;
     }
 
+
+    // todo -> put 'api/v1' to config file
     _initControllers()
     {
         const entrepriseController = new EntrepriseController();
+        const mockerController = new MockerController();
 
         this._app.get('/', entrepriseController.index.bind(entrepriseController));
 
@@ -56,7 +59,7 @@ export default class Server {
          */
         this._app.get('/api/v1/entreprises/:id', entrepriseController.getEntrepriseById.bind(entrepriseController));
         this._app.get('/api/v1/entreprises', entrepriseController.getEntreprises.bind(entrepriseController));
-
+        this._app.get('/mock/campaigns', mockerController.generateCampaigns.bind(mockerController));
         this._app.put('/api/v1/entreprises/:id', entrepriseController.putEntreprises.bind(entrepriseController));
     }
 
