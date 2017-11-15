@@ -15,28 +15,30 @@ export default class EntrepriseController
     }
 
     getEntreprises(req, res) {
+        const that = this;
         this.entrepriseHandler.getEntreprises()
-            .then(entreprise =>  this.sendJsonResponse(res, this.httpStatusService.ok, entreprise))
-            .catch(err => this.sendJsonResponse(res, this.httpStatusService.internalServerError, err));
+            .then(entreprise =>  that.sendJsonResponse(res, that.httpStatusService.ok, entreprise))
+            .catch(err => that.sendJsonResponse(res, that.httpStatusService.internalServerError, err));
     }
 
     getEntrepriseById(req, res) {
+        const that = this;
         const id = req.params.id;
-
         this.entrepriseHandler.getEntreprise(id)
-            .then(entreprise =>  this.sendJsonResponse(res, this.httpStatusService.ok, entreprise))
-            .catch(err => this.sendJsonResponse(res, this.httpStatusService.internalServerError, err));
+            .then(entreprise =>  that.sendJsonResponse(res, that.httpStatusService.ok, entreprise))
+            .catch(err => that.sendJsonResponse(res, that.httpStatusService.internalServerError, err));
     }
 
     putEntreprises(req, res) {
+        const that = this;
         const id = req.params.id;
         let array = this.setArrayFromBody(req.body);
         this.entrepriseHandler.putEntreprise(id, array)
-            .then(entreprise => this.sendJsonResponse(res, this.httpStatusService.ok, entreprise))
-            .catch(err => this.sendJsonResponse(res, this.httpStatusService.internalServerError, err));
+            .then(entreprise => that.sendJsonResponse(res, that.httpStatusService.ok, entreprise))
+            .catch(err => that.sendJsonResponse(res, that.httpStatusService.internalServerError, err));
     }
 
-    static sendJsonResponse(res, code, content) {
+    sendJsonResponse(res, code, content) {
         res.status(code);
         res.json(content);
     }
