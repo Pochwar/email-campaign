@@ -38,15 +38,16 @@ export default class EntrepriseController
     getEntrepriseById(req, res) {
         const that = this;
         const id = req.params.id;
-        this.entrepriseHandler.getEntreprise(id)
+        this.entrepriseHandler.getEntreprisesById(id)
             .then(entreprise =>  that.sendJsonResponse(res, that.httpStatusService.ok, entreprise))
             .catch(err => that.sendJsonResponse(res, that.httpStatusService.internalServerError, err));
     }
 
+    // TODO BCRYPT
     postEntreprise(req, res) {
         const that = this;
         let array = this.setArrayFromBody(req.body);
-        array.forEach(value => {
+        Object.entries(array).forEach(([key, value]) => {
             if(_.isNull(value)) {
                 this.sendJsonResponse(res, that.httpStatusService.internalServerError, {message: "Missing parameters"});
             }

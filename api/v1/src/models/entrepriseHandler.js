@@ -32,7 +32,7 @@ export default class entrepriseHandler {
     {
         return new Promise((resolve, reject) =>
         {
-            this.EntrepriseModel.find({"_id": id})
+            this.EntrepriseModel.findOne({"_id": id})
                 .then(entreprises => resolve(entreprises))
                 .catch(err => reject(err));
         });
@@ -57,7 +57,7 @@ export default class entrepriseHandler {
     {
         return new Promise((resolve, reject) =>
         {
-            this.getEntrepriseById(id).then(entreprise =>
+            this.getEntreprisesById(id).then(entreprise =>
             {
                 let modifiedEntreprise = this.checkArrayAndModifyEntreprise(entreprise, array);
                 modifiedEntreprise.save();
@@ -104,7 +104,8 @@ export default class entrepriseHandler {
         })
     }
 
-    static checkArrayAndModifyEntreprise(entreprise, array) {
+    checkArrayAndModifyEntreprise(entreprise, array) {
+        console.log(array);
         if (!_.isNull(array.email))
             entreprise.email = array.email;
 
