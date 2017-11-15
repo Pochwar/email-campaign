@@ -58,6 +58,8 @@ export default class Server {
         this._app.get('/api/v1/entreprises', entrepriseController.getEntreprises.bind(entrepriseController));
 
         this._app.put('/api/v1/entreprises/:id', entrepriseController.putEntreprises.bind(entrepriseController));
+
+        this._app.post('/api/v1/entreprise/:entrepriseId/:campaignId', entrepriseController.removeCampaign.bind(entrepriseController));
     }
 
     run()
