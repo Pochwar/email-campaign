@@ -70,8 +70,8 @@ export default class Server {
         this._app.post('/api/v1/entreprises', accessGranted.restricted, entrepriseController.postEntreprise.bind(entrepriseController));
         this._app.put('/api/v1/entreprises/:id', accessGranted.restricted, entrepriseController.putEntreprises.bind(entrepriseController));
         this._app.delete('/api/v1/entreprises/:id', accessGranted.restricted, entrepriseController.deleteEntreprises.bind(entrepriseController));
-        this._app.put('/api/v1/entreprises/:entrepriseId/:campaignId', accessGranted.restricted, entrepriseController.addCampaign.bind(entrepriseController));
-        this._app.put('/api/v1/entreprise/:entrepriseId/:campaignId', accessGranted.restricted, entrepriseController.removeCampaign.bind(entrepriseController));
+        this._app.put('/api/v1/entreprises/:entrepriseId/:campaignId/add', accessGranted.restricted, entrepriseController.addCampaign.bind(entrepriseController));
+        this._app.put('/api/v1/entreprises/:entrepriseId/:campaignId/remove', accessGranted.restricted, entrepriseController.removeCampaign.bind(entrepriseController));
     }
 
     run()
