@@ -6,7 +6,7 @@ const Schema = mongoose.Schema;
 
 const Entreprises = new Schema(
     {
-        _id: { type: String, required: true, unique: true },
+        // _id: { type: String, required: true, unique: true },
         label: { type: String, required: true },
         email: { type: String, required: true, unique: true },
         password: { type: String, required: true },
