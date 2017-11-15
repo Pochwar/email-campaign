@@ -28,6 +28,10 @@ export default class EntrepriseController
             .catch(err => that.sendJsonResponse(res, that.httpStatusService.internalServerError, err)/* Benoit */);
     }
 
+    entreprise(req, res) {
+        res.render('entreprise');
+    }
+
     getEntreprises(req, res) {
         const that = this;
         this.entrepriseHandler.getEntreprises()
