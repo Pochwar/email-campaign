@@ -14,6 +14,10 @@ export default class EntrepriseController
         res.render('entreprise');
     }
 
+    login(req, res) {
+        res.render('login');
+    }
+
     getEntreprises(req, res) {
         const that = this;
         this.entrepriseHandler.getEntreprises()
