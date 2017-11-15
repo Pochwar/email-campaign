@@ -41,7 +41,7 @@ export default class Server {
         const mockingService = new MockingService();
         const accessGranted = new AccessGranted();
 
-        this._app.get('/', accessGranted.restricted, entrepriseController.index.bind(entrepriseController));
+        this._app.get('/', accessGranted.public, entrepriseController.index.bind(entrepriseController));
         this._app.get('/entreprise', accessGranted.restricted, entrepriseController.entreprise.bind(entrepriseController));
         
         /** Route temporaire **/
