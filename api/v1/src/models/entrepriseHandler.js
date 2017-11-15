@@ -38,7 +38,21 @@ export default class entrepriseHandler {
         });
     }
 
-    // TODO Hasher le mot de passe
+    postEntreprise(array)
+    {
+        return new Promise((resolve, reject) =>
+        {
+            this.EntrepriseModel.create({
+                label: array.label,
+                email: array.email,
+                password: array.password,
+                url_ad: array.url_ad,
+                url_picture: array.url_picture,
+                campaign: []
+            }).then(entreprise => resolve(entreprise)).catch(err => reject(err))
+        })
+    }
+
     putEntreprise(id, array)
     {
         return new Promise((resolve, reject) =>

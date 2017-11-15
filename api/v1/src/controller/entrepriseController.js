@@ -42,6 +42,20 @@ export default class EntrepriseController
             .catch(err => that.sendJsonResponse(res, that.httpStatusService.internalServerError, err));
     }
 
+    postEntreprise(req, res) {
+        const that = this;
+        let array = this.setArrayFromBody(req.body);
+        array.forEach(value => {
+            if(_.isNull(value)) {
+                this.sendJsonResponse(res, that.httpStatusService.internalServerError, {message: "Missing parameters"});
+            }
+        });
+        this.entrepriseHandler.postEntreprise(array)
+            .then(entreprise => that.sendJsonResponse(res, that.httpStatusService.ok, entreprise))
+            .catch(err => that.sendJsonResponse(res, that.httpStatusService.internalServerError, err));
+
+    }
+
     putEntreprises(req, res) {
         const that = this;
         const id = req.params.id;
