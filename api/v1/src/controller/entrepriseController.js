@@ -19,13 +19,13 @@ export default class EntrepriseController
         const param = req.body;
 
         let array = {
-            user: param.user,
-            pass: param.pass
+            email: param.email,
+            password: param.password
         };
 
         this.entrepriseHandler.login(array)
-            .then(entreprise =>  that.sendJsonResponse(res, that.httpStatusService.ok, entreprise)/* Benoit */)
-            .catch(err => that.sendJsonResponse(res, that.httpStatusService.internalServerError, err)/* Benoit */);
+            .then(entreprise =>  that.sendJsonResponse(res, that.httpStatusService.ok, entreprise))
+            .catch(err => that.sendJsonResponse(res, that.httpStatusService.internalServerError, err));
     }
 
     entreprise(req, res) {

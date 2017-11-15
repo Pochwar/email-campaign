@@ -4,6 +4,7 @@ import express from 'express';
 import bodyParser from 'body-parser';
 import EntrepriseController from './controller/entrepriseController';
 import MockingService from './services/mockingService';
+import AccessGranted from './middleware/accessGranted';
 
 
 export default class Server {
@@ -38,13 +39,13 @@ export default class Server {
     {
         const entrepriseController = new EntrepriseController();
         const mockingService = new MockingService();
+        const accessGranted = new AccessGranted();
 
-        this._app.get('/', entrepriseController.index.bind(entrepriseController));
-        this._app.get('/entreprise', entrepriseController.entreprise.bind(entrepriseController));
-        this._app.post('/api/v1/login', entrepriseController.login.bind(entrepriseController));
-
+        this._app.get('/', accessGranted.restricted, entrepriseController.index.bind(entrepriseController));
+        this._app.get('/entreprise', accessGranted.restricted, entrepriseController.entreprise.bind(entrepriseController));
+        
         /** Route temporaire **/
-        this._app.get('/mock/campaigns', mockingService.generateCampaigns.bind(mockingService));
+        this._app.get('/mock/campaigns', accessGranted.public, mockingService.generateCampaigns.bind(mockingService));
 
         /**
          * @api {get} /v1/entreprises 1 Get all entreprises
@@ -62,13 +63,15 @@ export default class Server {
          * @apiSuccess {String} array.kittens.kibbles The prefered brand of kibbles for the kitten
          * @apiSuccess {Boolean} array.kittens.isAvailable Is the kitten already adopted or not
          */
-        this._app.get('/api/v1/entreprises', entrepriseController.getEntreprises.bind(entrepriseController));
-        this._app.get('/api/v1/entreprises/:id', entrepriseController.getEntrepriseById.bind(entrepriseController));
-        this._app.post('/api/v1/entreprises', entrepriseController.postEntreprise.bind(entrepriseController));
-        this._app.put('/api/v1/entreprises/:id', entrepriseController.putEntreprises.bind(entrepriseController));
-        this._app.delete('/api/v1/entreprises/:id', entrepriseController.deleteEntreprises.bind(entrepriseController));
-        this._app.put('/api/v1/entreprises/:entrepriseId/:campaignId/add', entrepriseController.addCampaign.bind(entrepriseController));
-        this._app.put('/api/v1/entreprises/:entrepriseId/:campaignId/remove', entrepriseController.removeCampaign.bind(entrepriseController));
+
+        this._app.post('/api/v1/login', accessGranted.public, entrepriseController.login.bind(entrepriseController));
+        this._app.get('/api/v1/entreprises', accessGranted.restricted, entrepriseController.getEntreprises.bind(entrepriseController));
+        this._app.get('/api/v1/entreprises/:id', accessGranted.restricted, entrepriseController.getEntrepriseById.bind(entrepriseController));
+        this._app.post('/api/v1/entreprises', accessGranted.restricted, entrepriseController.postEntreprise.bind(entrepriseController));
+        this._app.put('/api/v1/entreprises/:id', accessGranted.restricted, entrepriseController.putEntreprises.bind(entrepriseController));
+        this._app.delete('/api/v1/entreprises/:id', accessGranted.restricted, entrepriseController.deleteEntreprises.bind(entrepriseController));
+        this._app.put('/api/v1/entreprises/:entrepriseId/:campaignId', accessGranted.restricted, entrepriseController.addCampaign.bind(entrepriseController));
+        this._app.put('/api/v1/entreprise/:entrepriseId/:campaignId', accessGranted.restricted, entrepriseController.removeCampaign.bind(entrepriseController));
     }
 
     run()
