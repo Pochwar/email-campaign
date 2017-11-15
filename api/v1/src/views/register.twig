@@ -4,21 +4,21 @@
     <meta name="viewport"
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge" charset="utf-8">
-    <title>Connexion</title>
+    <title>Inscription</title>
     <link rel="stylesheet" href="css/login.css" media="screen" type="text/css" />
 </head>
 <body>
     <div class="login-card">
-        <h1>Connexion</h1><br>
+        <h1>Inscription</h1><br>
         <form method="post" action="">
-            <input id="email" type="text" name="email" placeholder="Utilisateur">
+            <input id="label" type="text" name="label" placeholder="Nom de l'entreprise">
+            <input id="email" type="text" name="email" placeholder="Email">
             <input id="password" type="password" name="password" placeholder="Mot de passe">
-            <input id="submit" type="submit" name="login" class="login login-submit" value="Connexion">
+            <input id="password-confirm" type="password" name="password-confirm" placeholder="Confirmez votre mot de passe">
+            <input id="url-ad" type="text" name="url-ad" placeholder="URL du site de l'entreprise">
+            <input id="url-picture" type="text" name="url-picture" placeholder="URL de l'image">
+            <input id="submit" type="submit" name="login" class="login login-submit" value="Inscription">
         </form>
-
-        <div class="login-help">
-            <a href="/register">Inscription</a> • <a href="#">Mot de passe oublié</a>
-        </div>
     </div>
 </body>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
