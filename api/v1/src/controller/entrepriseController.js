@@ -42,6 +42,12 @@ export default class EntrepriseController
         res.status(code);
         res.json(content);
     }
+    addCampaign(req, res)
+    {
+        this.entrepriseHandler.addCampaign()
+            .then(entreprises => res.json(entreprises))
+            .catch(err => reject(err))
+    }
 
     static setArrayFromBody(body) {
         let array = {};
