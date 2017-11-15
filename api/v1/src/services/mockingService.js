@@ -1,6 +1,6 @@
 import faker from 'faker';
 
-export default class MockerController
+export default class MockingService
 {
     constructor(){
         //
@@ -13,7 +13,7 @@ export default class MockerController
             const randomName = faker.name.findName();
             const randomEmail = faker.internet.email();
             data.push({
-                name: "salut",
+                name: "tavu",
                 email: randomEmail
             })
         }
