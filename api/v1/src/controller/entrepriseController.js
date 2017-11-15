@@ -1,13 +1,13 @@
 import EntrepriseHandler from "../models/entrepriseHandler";
-import eV from "../models/entrepriseValidator";
+import _ from "underscore";
+import HttpStatusService from "../services/httpStatusService";
 
 export default class EntrepriseController
 {
 
     constructor() {
         this.entrepriseHandler = new EntrepriseHandler();
-        this.eV = new eV();
-        this.status = this.eV.getStatus();
+        this.httpStatusService = new HttpStatusService();
     }
 
     index(req, res) {
@@ -15,40 +15,48 @@ export default class EntrepriseController
     }
 
     getEntreprises(req, res) {
+        const that = this;
         this.entrepriseHandler.getEntreprises()
-            .then(entreprise => res.json(entreprise))
-            .catch(err => res.json(err))
-    }
-    getEntreprisesById(id)
-    {
-        // Return promise
-    }
-    postEntreprises(array)
-    {
-        // Return promise
+            .then(entreprise =>  that.sendJsonResponse(res, that.httpStatusService.ok, entreprise))
+            .catch(err => that.sendJsonResponse(res, that.httpStatusService.internalServerError, err));
     }
 
-    putEntreprises(id)
-    {
-        // Return promise
+    getEntrepriseById(req, res) {
+        const that = this;
+        const id = req.params.id;
+        this.entrepriseHandler.getEntreprise(id)
+            .then(entreprise =>  that.sendJsonResponse(res, that.httpStatusService.ok, entreprise))
+            .catch(err => that.sendJsonResponse(res, that.httpStatusService.internalServerError, err));
     }
 
-    removeEntreprises(id)
-    {
-        // Return promise
+    putEntreprises(req, res) {
+        const that = this;
+        const id = req.params.id;
+        let array = this.setArrayFromBody(req.body);
+        this.entrepriseHandler.putEntreprise(id, array)
+            .then(entreprise => that.sendJsonResponse(res, that.httpStatusService.ok, entreprise))
+            .catch(err => that.sendJsonResponse(res, that.httpStatusService.internalServerError, err));
     }
-    deleteEntreprises(id)
-    {
-        // Return promise
-    }
-    removeCampaign(entrepriseId, campaignId)
-    {
-        // Return promise
+
+    sendJsonResponse(res, code, content) {
+        res.status(code);
+        res.json(content);
     }
     addCampaign(req, res)
     {
         this.entrepriseHandler.addCampaign()
             .then(entreprises => res.json(entreprises))
             .catch(err => reject(err))
+    }
+
+    static setArrayFromBody(body) {
+        let array = {};
+        array.label = (!_.isNull(body.label)) ? body.label : null;
+        array.email = (!_.isNull(body.email)) ? body.email : null;
+        array.password = (!_.isNull(body.password)) ? body.password : null;
+        array.url_ad = (!_.isNull(body.url_ad)) ? body.url_ad : null;
+        array.url_picture = (!_.isNull(body.url_picture)) ? body.url_picture : null;
+        array.campaign = (!_.isNull(body.campaign)) ? body.campaign : null;
+        return array
     }
 }

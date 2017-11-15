@@ -54,7 +54,10 @@ export default class Server {
          * @apiSuccess {String} array.kittens.kibbles The prefered brand of kibbles for the kitten
          * @apiSuccess {Boolean} array.kittens.isAvailable Is the kitten already adopted or not
          */
+        this._app.get('/api/v1/entreprises/:id', entrepriseController.getEntrepriseById.bind(entrepriseController));
         this._app.get('/api/v1/entreprises', entrepriseController.getEntreprises.bind(entrepriseController));
+
+        this._app.put('/api/v1/entreprises/:id', entrepriseController.putEntreprises.bind(entrepriseController));
     }
 
     run()
