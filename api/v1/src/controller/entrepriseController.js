@@ -62,11 +62,12 @@ export default class EntrepriseController
     {
         // Return promise
     }
-    deleteEntreprises(id)
+    deleteEntreprises(req, res)
     {
-        if(!this.eV.checkId(req.body.id))
+        const id = req.params.id;
+        if(!this.eV.checkId(id))
         {
-            this.EntrepriseHandler.deleteEntreprise(req.body.id).then(result =>
+            this.entrepriseHandler.deleteEntreprises(id).then(result =>
             {
                 res.status(this.status.ok).json(result);
             }).catch(e => console.log(e));
