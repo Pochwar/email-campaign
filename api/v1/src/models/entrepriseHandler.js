@@ -8,6 +8,16 @@ export default class entrepriseHandler {
         this.EntrepriseModel = entrepriseModel;
     }
 
+    login(array)
+    {
+        return new Promise((resolve, reject) =>
+        {
+            this.EntrepriseModel.findOne({"email": array.user, "password": array.pass})
+                .then(entreprises => resolve(entreprises))
+                .catch(err => reject(err));
+        });
+    }
+
     getEntreprises()
     {
         return new Promise((resolve, reject) =>
