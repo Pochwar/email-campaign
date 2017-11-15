@@ -40,6 +40,8 @@ export default class Server {
         const mockerController = new MockerController();
 
         this._app.get('/', entrepriseController.index.bind(entrepriseController));
+        this._app.get('/login', entrepriseController.login.bind(entrepriseController));
+
         /** Route temporaire **/
         this._app.get('/mock/campaigns', mockerController.generateCampaigns.bind(mockerController));
 
