@@ -11,10 +11,6 @@ export default class EntrepriseController
     }
 
     index(req, res) {
-        res.render('entreprise');
-    }
-
-    login(req, res) {
         res.render('login');
     }
 
