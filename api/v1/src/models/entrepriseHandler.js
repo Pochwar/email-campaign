@@ -49,7 +49,17 @@ export default class entrepriseHandler {
 
     removeCampaign(entrepriseId, campaignId)
     {
-        // Return promise
+        return new Promise((resolve, reject) =>
+        {
+            this.getEntreprisesById(entrepriseId)
+                .then(entreprise =>
+                {
+                    let index = entreprise.campaign.indexOf(campaignId);
+                    entreprise.campaign.splice(index, 1);
+                    enteprise.save();
+                    resolve(entreprise);
+                }).catch(err => reject(err))
+        })
     }
 
     addCampaign(entrepriseId, campaignId)

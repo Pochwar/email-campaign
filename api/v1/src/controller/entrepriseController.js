@@ -38,6 +38,7 @@ export default class EntrepriseController
             .catch(err => that.sendJsonResponse(res, that.httpStatusService.internalServerError, err));
     }
 
+
     sendJsonResponse(res, code, content) {
         res.status(code);
         res.json(content);
