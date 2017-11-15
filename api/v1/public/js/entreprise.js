@@ -1,7 +1,14 @@
 $(document).ready(function()
 {
+    var token = localStorage.getItem('api_token');
+
+    console.log(token)
+
+    if(token == null || typeof token == "undefined") {
+        location.href = "/login";
+    }
     $.ajax({
-        url: 'v1/kittens',
+        url: '/api/v1/kittens',
         type: 'GET',
         dataType: 'json',
         success: function(json, status)

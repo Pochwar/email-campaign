@@ -11,7 +11,11 @@ export default class EntrepriseController
     }
 
     index(req, res) {
-        res.render('login');
+        res.render('index');
+    }
+
+    register(req, res) {
+        res.render('register');
     }
 
     login(req, res) {
@@ -24,7 +28,7 @@ export default class EntrepriseController
         };
 
         this.entrepriseHandler.login(array)
-            .then(entreprise =>  that.sendJsonResponse(res, that.httpStatusService.ok, entreprise))
+            .then(data =>  that.sendJsonResponse(res, that.httpStatusService.ok, data))
             .catch(err => that.sendJsonResponse(res, that.httpStatusService.internalServerError, err));
     }
 
