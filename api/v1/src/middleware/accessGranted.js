@@ -15,6 +15,7 @@ class AccessGranted  {
 
     // can user access member's part ?
     restricted(req, res, next) {
+        console.log(req.headers);
        //todo -> get token from header request
         // jwt.verify(token, 'secret');
         const test = true;
