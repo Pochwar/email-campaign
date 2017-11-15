@@ -15,6 +15,7 @@ export default class EntrepriseController
     }
 
     login(req, res) {
+        const that = this;
         const param = req.body;
 
         let array = {
