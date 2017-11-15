@@ -44,4 +44,10 @@ var listCampaigns = function() {
             }
         });
     }
+};
+
+var deconnexion = function() {
+    localStorage.removeItem('api_token');
+    $('#services').hide();
+    $('.login-card').show();
 }
