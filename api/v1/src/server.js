@@ -39,7 +39,8 @@ export default class Server {
         const entrepriseController = new EntrepriseController();
         const mockingService = new MockingService();
 
-        this._app.get('/', entrepriseController.login.bind(entrepriseController));
+        this._app.get('/', entrepriseController.index.bind(entrepriseController));
+        this._app.post('/api/v1/login', entrepriseController.login.bind(entrepriseController));
 
         /** Route temporaire **/
         this._app.get('/mock/campaigns', mockingService.generateCampaigns.bind(mockingService));

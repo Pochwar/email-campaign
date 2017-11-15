@@ -14,6 +14,19 @@ export default class EntrepriseController
         res.render('login');
     }
 
+    login(req, res) {
+        const param = req.body;
+
+        let array = {
+            user: param.user,
+            pass: param.pass
+        };
+
+        this.entrepriseHandler.login(array)
+            .then(entreprise =>  /* Benoit */)
+            .catch(err => /* Benoit */);
+    }
+
     getEntreprises(req, res) {
         const that = this;
         this.entrepriseHandler.getEntreprises()
