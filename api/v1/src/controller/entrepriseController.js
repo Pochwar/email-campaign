@@ -98,7 +98,7 @@ export default class EntrepriseController
         res.json(content);
     }
 
-    static setArrayFromBody(body) {
+    setArrayFromBody(body) {
         let array = {};
         array.label = (!_.isNull(body.label)) ? body.label : null;
         array.email = (!_.isNull(body.email)) ? body.email : null;
