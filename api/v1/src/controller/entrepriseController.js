@@ -23,8 +23,8 @@ export default class EntrepriseController
         };
 
         this.entrepriseHandler.login(array)
-            .then(entreprise =>  /* Benoit */)
-            .catch(err => /* Benoit */);
+            .then(entreprise =>  that.sendJsonResponse(res, that.httpStatusService.ok, entreprise)/* Benoit */)
+            .catch(err => that.sendJsonResponse(res, that.httpStatusService.internalServerError, err)/* Benoit */);
     }
 
     getEntreprises(req, res) {
