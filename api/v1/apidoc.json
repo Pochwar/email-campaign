@@ -1,5 +1,8 @@
 {
-  "name": "email_campaign",
+  "name": "Manage email campaigns API",
   "version": "0.0.1",
-  "description": "The api that allow you to save kittens !"
+  "description": "The best api for manage campaigns !",
+  "template" : {
+    "withCompare" : false
+  }
 }
