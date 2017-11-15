@@ -3,7 +3,7 @@ $(document).ready(function() {
 
     if (!token) {
         $("#entreprise").hide();
-        $(".login-card").show();
+        $("#login").show();
     } else {
         listCampaigns();
     }
@@ -44,7 +44,7 @@ $(document).ready(function() {
                 success: function(data, status)
                 {
                     $("#entreprise").show();
-                    $(".login-card").hide();
+                    $("#login").hide();
                 },
                 error: function(result, status, error)
                 {
