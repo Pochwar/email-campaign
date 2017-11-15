@@ -6,7 +6,7 @@ $(document).ready(function()
         $('.register-card').hide();
         $('.login-card').show();
     } else {
-        $("#submit").unbind('click').bind('click', function () {
+        $("#submit-register").unbind('click').bind('click', function () {
             var label = $('#label').val();
             var email = $('#email').val();
             var password = $('#password').val();
