@@ -3,7 +3,7 @@ import _ from 'underscore';
 import express from 'express';
 import bodyParser from 'body-parser';
 import EntrepriseController from './controller/entrepriseController';
-import MockerController from './controller/mockerController';
+import MockingService from './services/mockingService';
 
 
 export default class Server {
@@ -37,12 +37,12 @@ export default class Server {
     _initControllers()
     {
         const entrepriseController = new EntrepriseController();
-        const mockerController = new MockerController();
+        const mockingService = new MockingService();
 
         this._app.get('/', entrepriseController.login.bind(entrepriseController));
 
         /** Route temporaire **/
-        this._app.get('/mock/campaigns', mockerController.generateCampaigns.bind(mockerController));
+        this._app.get('/mock/campaigns', mockingService.generateCampaigns.bind(mockingService));
 
         /**
          * @api {get} /v1/entreprises 1 Get all entreprises
