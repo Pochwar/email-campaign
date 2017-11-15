@@ -83,8 +83,10 @@ export default class entrepriseHandler {
                 .then(entreprise =>
                 {
                     let index = entreprise.campaign.indexOf(campaignId);
+                    console.log(campaignId);
+                    console.log(index);
                     entreprise.campaign.splice(index, 1);
-                    enteprise.save();
+                    entreprise.save();
                     resolve(entreprise);
                 }).catch(err => reject(err))
         })
@@ -105,7 +107,6 @@ export default class entrepriseHandler {
     }
 
     checkArrayAndModifyEntreprise(entreprise, array) {
-        console.log(array);
         if (!_.isNull(array.email))
             entreprise.email = array.email;
 

@@ -66,8 +66,8 @@ export default class Server {
         this._app.post('/api/v1/entreprises', entrepriseController.postEntreprise.bind(entrepriseController));
         this._app.put('/api/v1/entreprises/:id', entrepriseController.putEntreprises.bind(entrepriseController));
         this._app.delete('/api/v1/entreprises/:id', entrepriseController.deleteEntreprises.bind(entrepriseController));
-        this._app.put('/api/v1/entreprises/:entrepriseId/:campaignId', entrepriseController.addCampaign.bind(entrepriseController));
-        this._app.put('/api/v1/entreprise/:entrepriseId/:campaignId', entrepriseController.removeCampaign.bind(entrepriseController));
+        this._app.put('/api/v1/entreprises/:entrepriseId/:campaignId/add', entrepriseController.addCampaign.bind(entrepriseController));
+        this._app.put('/api/v1/entreprises/:entrepriseId/:campaignId/remove', entrepriseController.removeCampaign.bind(entrepriseController));
     }
 
     run()

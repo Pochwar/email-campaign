@@ -12,7 +12,7 @@ const Entreprises = new Schema(
         password: { type: String, required: true },
         url_ad: { type: String, required: true },
         url_picture: { type: String, required: true },
-        campaign: [[Number]],
+        campaign: [Number],
     });
 
 module.exports = mongoose.model('Entreprises', Entreprises);
