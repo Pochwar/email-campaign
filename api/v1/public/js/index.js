@@ -121,4 +121,11 @@ $(document).ready(function ()
         });
     }
 
+    function disconnect() {
+        localStorage.removeItem('api_token');
+        $("#login").show();
+        $('#register-card').hide();
+        $("#entreprise").hide();
+    }
+
 });
