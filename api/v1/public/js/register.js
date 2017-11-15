@@ -32,10 +32,11 @@ $(document).ready(function()
                         $('.login-card').show();
                     },
                     error: function (error) {
-                        console.log('pas ok');
-                        console.log(error)
+                        $('.alert-error').html(error.message);
                     }
                 })
+            } else {
+                $('.alert-error').html("Erreur les mots de passes ne corresponde pas");
             }
         });
     }
