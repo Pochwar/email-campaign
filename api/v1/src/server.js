@@ -40,6 +40,7 @@ export default class Server {
         const mockingService = new MockingService();
 
         this._app.get('/', entrepriseController.index.bind(entrepriseController));
+        this._app.get('/entreprise', entrepriseController.entreprise.bind(entrepriseController));
         this._app.post('/api/v1/login', entrepriseController.login.bind(entrepriseController));
 
         /** Route temporaire **/
