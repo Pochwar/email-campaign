@@ -1,5 +1,6 @@
 import EntrepriseHandler from "../models/entrepriseHandler";
 import _ from "underscore";
+import eV from "../models/entrepriseValidator";
 import HttpStatusService from "../services/httpStatusService";
 
 export default class EntrepriseController
@@ -37,16 +38,17 @@ export default class EntrepriseController
             .then(entreprise => that.sendJsonResponse(res, that.httpStatusService.ok, entreprise))
             .catch(err => that.sendJsonResponse(res, that.httpStatusService.internalServerError, err));
     }
+  
+   addCampaign(req, res)
+   {
+       this.entrepriseHandler.addCampaign()
+           .then(entreprises => res.json(entreprises))
+           .catch(err => reject(err))
+   }
 
     sendJsonResponse(res, code, content) {
         res.status(code);
         res.json(content);
-    }
-    addCampaign(req, res)
-    {
-        this.entrepriseHandler.addCampaign()
-            .then(entreprises => res.json(entreprises))
-            .catch(err => reject(err))
     }
 
     static setArrayFromBody(body) {
