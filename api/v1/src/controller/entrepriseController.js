@@ -37,6 +37,25 @@ export default class EntrepriseController
             .then(entreprise => that.sendJsonResponse(res, that.httpStatusService.ok, entreprise))
             .catch(err => that.sendJsonResponse(res, that.httpStatusService.internalServerError, err));
     }
+  
+    deleteEntreprises(req, res)
+    {
+        const id = req.params.id;
+        const that = this;
+        this.entrepriseHandler.deleteEntreprises(id)
+            .then(entreprise => that.sendJsonResponse(res, that.httpStatusService.ok, entreprise))
+            .catch(err => that.sendJsonResponse(res, that.httpStatusService.internalServerError, err));
+    }
+  
+   addCampaign(req, res)
+   {
+     const entrepriseId = req.params.entrepriseId;
+     const campaignId = req.params.campaignId;
+     const that = this;
+       this.entrepriseHandler.addCampaign(entrepriseId, campaignId)
+           .then(entreprises => that.sendJsonResponse(res, that.httpStatusService.ok, entreprises))
+           .catch(err => that.sendJsonResponse(res, that.httpStatusService.internalServerError, err))
+   }
 
     sendJsonResponse(res, code, content) {
         res.status(code);
