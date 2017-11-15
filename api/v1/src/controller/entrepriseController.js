@@ -14,6 +14,10 @@ export default class EntrepriseController
         res.render('index');
     }
 
+    register(req, res) {
+        res.render('register');
+    }
+
     login(req, res) {
         const that = this;
         const param = req.body;
