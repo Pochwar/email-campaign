@@ -1,21 +1,11 @@
 // Middleware to restrict route access
+import jwt from 'jsonwebtoken';
+// import localStorage from 'localStorage';
 
 class AccessGranted  {
 
     // constructor save config
-    constructor(defaultRole, moderatorRole, superAdminRole) {
-
-        // roles
-        this._defaultRole = defaultRole;
-        this._moderatorRole = moderatorRole;
-        this._superAdminRole = superAdminRole;
-
-        // bind method to this
-        this.everyone = this.everyone.bind(this);
-        this.member = this.member.bind(this);
-        this.moderator = this.moderator.bind(this);
-        this.superAdmin = this.superAdmin.bind(this);
-        this.render403 = this.render403.bind(this);
+    constructor() {
     }
 
     // public
@@ -24,22 +14,19 @@ class AccessGranted  {
     }
 
     // can user access member's part ?
-    protected(req, res, next) {
-
+    restricted(req, res, next) {
+       //todo -> get token from header request
+        // jwt.verify(token, 'secret');
+        const test = true;
         // invalid req
-        if( !res.locals.user || !res.locals.user.roleId || res.locals.user.roleId < this._defaultRole) {
-            this.render403(res);
+        if(!test) {
+            res.status(403).json(
+                {error:"Access forbidden",}
+            );
         }
         else {
             next();
         }
-    }
-
-    // render unauhtorized
-    render403(res) {
-        res.status(403).render('unauthorization.twig',{
-            lang: res.locals.lang,
-        });
     }
 }
 

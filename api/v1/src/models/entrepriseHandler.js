@@ -1,5 +1,7 @@
 import entrepriseModel from "./entrepriseModel";
 import _ from "underscore";
+import jwt from 'jsonwebtoken';
+import bcrypt from 'bcrypt';
 
 
 export default class entrepriseHandler {
@@ -12,8 +14,21 @@ export default class entrepriseHandler {
     {
         return new Promise((resolve, reject) =>
         {
-            this.EntrepriseModel.findOne({"email": array.user, "password": array.pass})
-                .then(entreprises => resolve(entreprises))
+            this.EntrepriseModel.findOne({"email": array.email})
+                .then(entreprise => {
+                    bcrypt.compare(array.password, entreprise.password, (err, res) => {
+                        if (res) {
+                            const token = jwt.sign({ _id: entreprise._id}, 'secret',{ expiresIn: 60 * 60 });
+                            resolve({
+                                entreprise: entreprise,
+                                token: token
+                            })
+                        } else {
+                            reject(err)
+                        }
+                    })
+
+                })
                 .catch(err => reject(err));
         });
     }
@@ -40,12 +55,13 @@ export default class entrepriseHandler {
 
     postEntreprise(array)
     {
+        const password = bcrypt.hashSync(array.password, 10);console.log(password);
         return new Promise((resolve, reject) =>
         {
             this.EntrepriseModel.create({
                 label: array.label,
                 email: array.email,
-                password: array.password,
+                password: password,
                 url_ad: array.url_ad,
                 url_picture: array.url_picture,
                 campaign: []
