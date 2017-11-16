@@ -6,93 +6,124 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge" charset="utf-8">
     <title>Connexion</title>
     <link rel="stylesheet" href="css/login.css" media="screen" type="text/css" />
-    <link rel="stylesheet" href="css/entreprise.css" media="screen" type="text/css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/css/materialize.min.css">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 </head>
 <body>
-    <section id="login" class="login-card">
-        <h1>Connexion</h1><br>
-        <form>
-            <input id="email" type="text" name="email" placeholder="Utilisateur">
-            <input id="password" type="password" name="password" placeholder="Mot de passe">
-            <input id="submit" type="submit" name="login" class="login login-submit" value="Connexion">
-        </form>
-
-        <div class="login-help">
-            <a id="show-register">Inscription</a> • <a href="#">Mot de passe oublié</a>
-        </div>
-    </section>
-
-
-    <section id="entreprise">
-        <header id="header">
-            <nav id="main-menu" class="navbar navbar-default navbar-fixed-top top-nav-collapse" role="banner">
-                <div class="container">
-                    <div class="navbar-header">
-                        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-                            <span class="sr-only">Toggle navigation</span>
-                            <span class="icon-bar"></span>
-                            <span class="icon-bar"></span>
-                            <span class="icon-bar"></span>
-                        </button>
-                        <a class="navbar-brand" href="index.html">Email-Campaign</a>
-                    </div>
-
-                    <div class="collapse navbar-collapse navbar-right">
-                        <ul class="nav navbar-nav">
-                            <li class="scroll active"><a class= "navbar-brand"> Nom de l'entreprise</a></li>
-                            <li class="scroll active"><a href="deconnexion" class= "navbar-brand">Déconnexion </a></li>
-                        </ul>
-                    </div>
-                </div><!--/.container-->
-            </nav><!--/nav-->
-        </header><!--/header-->
-
-        <section>
-            <div class="container">
-                <div class="section-header">
-                    <h2 class="section-title text-center wow fadeInDown">Gestion de la visibilité sur les campagnes</h2>
-                </div>
-                <div class="row">
-                    <div class="features">
-                        <div class="col-md-6 col-md-offset-3 wow fadeInUp" data-wow-duration="300ms" data-wow-delay="0ms">
-                            <div class="media service-box">
-                                <div class="media-body">
-                                    <h4 class="media-heading">Liste</h4>
-                                    <p>
-                                        <div id="campaigns">
-                                            <table>
-                                                <tr><th>titre1</th><th>titre2</th></tr>
-                                                <tr><td>point</td><td>nom compagne qui est un petit peu long comparé à la taille de la ligne</td><tr>
-                                                <tr><td>point</td><td>nom compagne</td></tr>
-                                                <tr><td>point</td><td>nom compagne</td></tr>
-                                                <tr><td>point</td><td>nom compagne</td></tr>
-                                            </table>
-                                        </div>
-                                    </p>
-                                </div>
+<section id="login" class="login-card">
+    <div class="container">
+        <div class="row">
+            <div class="col s4 offset-s4">
+                <div class="card grey lighten-4 z-depth-4">
+                    <h4 class="center-align" style="font-weight: 100">Connexion</h4>
+                    <form>
+                        <div class="row">
+                            <div class="input-field col s12">
+                                <input id="email" type="email" class="validate">
+                                <label for="email">Identifiant</label>
                             </div>
-                        </div><!--/.col-md-4-->
+                        </div>
+                        <div class="row">
+                            <div class="input-field col s12">
+                                <input id="password" type="password" class="validate">
+                                <label for="password">Mot de passe</label>
+                            </div>
+                        </div>
+                        <button id="submit" class="col s12 btn waves-effect waves-light" type="submit" name="action">Connexion</button>
+                    </form>
+                    <div class="login-help">
+                        <a id="show-register" href="#">Inscription</a> • <a href="#">Mot de passe oublié</a>
                     </div>
-                </div><!--/.row-->
-            </div><!--/.container-->
-        </section><!--/#services-->
-    </section><!--/#services-->
-
-    <section id="register-card">
-        <div class="login-card">
-            <h1>Inscription</h1><br>
-            <p class="alert-error hidden"></p>
-            <input id="label" type="text" name="label" placeholder="Nom de l'entreprise">
-            <input id="emailRegister" type="text" name="email" placeholder="Email">
-            <input id="passwordRegister" type="password" name="password" placeholder="Mot de passe">
-            <input id="passwordConfirmRegister" type="password" name="password-confirm" placeholder="Confirmez votre mot de passe">
-            <input id="url-ad" type="text" name="url-ad" placeholder="URL du site de l'entreprise">
-            <input id="url-picture" type="text" name="url-picture" placeholder="URL de l'image">
-            <input id="submit-register" type="submit" name="login" class="login login-submit" value="Inscription">
+                </div>
+            </div>
         </div>
-    </section>
+    </div>
+</section>
 
+<section id="entreprise">
+    <div class="container">
+        <div class="row">
+            <nav>
+                <div class="nav-wrapper">
+                    <a href="#" class="brand-logo"><img src="http://imie-ecole-informatique.fr/sites/default/files/logo-imie_3.png" style="width: 200px;margin: 3px 0px 0px 5px;"></a>
+                    <ul id="nav-mobile" class="right hide-on-med-and-down">
+                        <li id="display_name_enterprise">Nom de l'entreprise</li>
+                        <li class="active"><a id="but_disconnect" href="#"><i class="material-icons">power_settings_new</i></a></li>
+                    </ul>
+                </div>
+            </nav>
+        </div>
+        <h4 class="center-align">Gestion de la visibilité sur les campagnes</h4>
+        <div class="row">
+            <div class="col s6 offset-s3">
+                <div class="card grey lighten-4">
+                    <div class="card-content">
+                        <h5>Liste des campagnes</h5>
+                        <div id="campaigns">
+                            <form action="#">
+                                <p>
+                                    <input type="checkbox" id="campagne1" />
+                                    <label for="campagne1">Campagne 1</label>
+                                </p>
+                                <p>
+                                    <input type="checkbox" id="campagne2" checked="checked" />
+                                    <label for="campagne2">Campagne 1</label>
+                                </p>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section id="register-card" class="register-card">
+    <div class="container">
+        <div class="row">
+            <div class="col s4 offset-s4">
+                <div class="card grey lighten-4 z-depth-4">
+                    <h4 class="center-align" style="font-weight: 100">Inscription</h4>
+                    <p class="alert-error hidden"></p>
+                    <form>
+                        <div class="input-field col s12">
+                            <input id="label" type="text" class="validate">
+                            <label for="label">Nom de l'entreprise</label>
+                        </div>
+                        <div class="input-field col s12">
+                            <input id="emailRegister" type="email" class="validate">
+                            <label for="emailRegister">Email</label>
+                        </div>
+                        <div class="input-field col s12">
+                            <input id="passwordRegister" type="password" class="validate">
+                            <label for="passwordRegister">Mot de passe</label>
+                        </div>
+                        <div class="input-field col s12">
+                            <input id="passwordConfirmRegister" type="password" class="validate">
+                            <label for="passwordConfirmRegister">Confirmez votre mot de passe</label>
+                        </div>
+                        <div class="input-field col s12">
+                            <input id="url-ad" type="text" class="validate">
+                            <label for="url-ad">URL du site de l'entreprise</label>
+                        </div>
+                        <div class="input-field col s12">
+                            <input id="url-picture" type="text" class="validate">
+                            <label for="url-picture">URL de l'image</label>
+                        </div>
+                        <button id="submit-register" class="col s12 btn waves-effect waves-light" type="submit" name="action">Inscription</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
 </body>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/js/materialize.min.js"></script>
 <script src="js/index.js"></script>
+<script type="text/javascript">
+    $(document).ready(function() {
+        Materialize.updateTextFields();
+    });
+</script>
 </html>

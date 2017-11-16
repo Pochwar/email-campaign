@@ -7,11 +7,12 @@ $(document).ready(function ()
         $('#register-card').hide();
         $("#entreprise").hide();
         $("#login").show();
+
+        // Gère la page register
+        handleRegister(token);
     }
     else
     {
-        // Gère la page register
-        handleRegister(token);
         listCampaigns();
     }
 
