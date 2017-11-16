@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" charset="utf-8">
+    <title>Connexion</title>
+    <link rel="stylesheet" href="css/index.css" media="screen" type="text/css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/css/materialize.min.css">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+</head>
+<body>
+
+<div id="error">
+    <div id="error_msg"></div>
+</div>
+
+<div id="success">
+    <div id="success_msg"></div>
+</div>
+
+<section id="login" class="login-card">
+    <div class="container">
+        <div class="row">
+            <div class="col s4 offset-s4">
+                <div class="card grey lighten-4 z-depth-4">
+                    <h4 class="center-align" style="font-weight: 100">Connexion</h4>
+                    <form>
+                        <div class="row">
+                            <div class="input-field col s12">
+                                <input id="email" type="email" class="validate" required>
+                                <label for="email">E-mail</label>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="input-field col s12">
+                                <input id="password" type="password" class="validate" required>
+                                <label for="password">Mot de passe</label>
+                            </div>
+                        </div>
+                        <button id="submit" class="col s12 btn waves-effect waves-light" type="submit" name="action">Connexion</button>
+                    </form>
+                    <div class="login-help">
+                        <a id="show-register" href="#">Inscription</a> • <a href="#">Mot de passe oublié</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section id="entreprise">
+    <div class="container">
+        <div class="row">
+            <nav>
+                <div class="nav-wrapper">
+                    <a href="#" class="brand-logo"><img src="http://imie-ecole-informatique.fr/sites/default/files/logo-imie_3.png" style="width: 200px;margin: 3px 0px 0px 5px;"></a>
+                    <a href="#" data-activates="mobile-demo" class="button-collapse"><i class="material-icons">menu</i></a>
+
+                    <ul id="nav-mobile" class="right hide-on-med-and-down">
+                        <li class="display_name_enterprise">Nom de l'entreprise</li>
+                        <li class="active">
+                            <a class="but_disconnect" href="#" title="se déconnecter">
+                                <i class="material-icons">power_settings_new</i>
+                            </a>
+                        </li>
+                        <li class="active">
+                            <a class="but_unsubscribe" href="#" title="se désinscrire">
+                                <i class="material-icons">highlight_off</i>
+                            </a>
+                        </li>
+                    </ul>
+                    <ul class="side-nav black-text" id="mobile-demo">
+                        <li class="display_name_enterprise">Nom de l'entreprise</li>
+                        <li class="active">
+                            <a class="but_disconnect" href="#" title="se déconnecter">
+                                <i class="material-icons">power_settings_new</i>Se déconnecter
+                            </a>
+                        </li>
+                        <li class="active">
+                            <a class="but_unsubscribe" href="#" title="se désinscrire">
+                                <i class="material-icons">highlight_off</i>Se désinscrire
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </nav>
+        </div>
+        <h4 class="center-align">Gestion de la visibilité sur les campagnes</h4>
+        <div class="row">
+            <div class="col s6 offset-s3">
+                <div class="card grey lighten-4 black-text">
+                    <div class="card-content">
+                        <h5>Liste des campagnes</h5>
+                        <form id="campaigns">
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <hr>
+        <h4 class="center-align">Vos informations</h4>
+        <div class="row">
+            <div class="col s6 offset-s3">
+                <div class="card grey lighten-4 black-text">
+                    <div class="card-content">
+                        <div>
+                            <p class="p_label">Url de votre publicité</p>
+                            <p id="ad_url"></p>
+                        </div>
+                        <div>
+                            <p class="p_label">Image de votre publicité</p>
+                            <p id="img_url"></p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section id="register-card" class="register-card">
+    <div class="container">
+        <div class="row">
+            <div class="col s4 offset-s4">
+                <div class="card grey lighten-4 z-depth-4">
+                    <h4 class="center-align" style="font-weight: 100">Inscription</h4>
+                    <p class="alert-error hidden"></p>
+                    <form>
+                        <div class="input-field col s12">
+                            <input id="label" type="text" class="validate" required>
+                            <label for="label">Nom de l'entreprise</label>
+                        </div>
+                        <div class="input-field col s12">
+                            <input id="emailRegister" type="email" class="validate" required>
+                            <label for="emailRegister">Email</label>
+                        </div>
+                        <div class="input-field col s12">
+                            <input id="passwordRegister" type="password" class="validate" required>
+                            <label for="passwordRegister">Mot de passe</label>
+                        </div>
+                        <div class="input-field col s12">
+                            <input id="passwordConfirmRegister" type="password" class="validate" required>
+                            <label for="passwordConfirmRegister">Confirmez votre mot de passe</label>
+                        </div>
+                        <div class="input-field col s12">
+                            <input id="url-ad" type="text" class="validate" required>
+                            <label for="url-ad">URL du site de l'entreprise</label>
+                        </div>
+                        <div class="input-field col s12">
+                            <input id="url-picture" type="text" class="validate" required>
+                            <label for="url-picture">URL de l'image</label>
+                        </div>
+                        <button id="submit-register" class="col s12 btn waves-effect waves-light" type="submit" name="action">Inscription</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+</body>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/js/materialize.min.js"></script>
+<script src="js/index.js"></script>
+</html>
