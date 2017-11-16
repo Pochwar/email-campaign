@@ -1,5 +1,4 @@
 .idea
-api/v1/node_modules
-api/v1/config/config.yml
-api/v1/build/
-api/v1/.env
+node_modules
+build/
+.env
