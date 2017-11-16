@@ -69,7 +69,7 @@ export default class entrepriseHandler {
                         });
                     }
                     else {
-                        reject({errMessage: "Une erreur c'est produite"});
+                        reject({errMessage: "Une erreur s'est produite"});
                     }
                 })
                 .catch(err => reject(err));
@@ -101,7 +101,7 @@ export default class entrepriseHandler {
                     });
                 }
                 else {
-                    reject({errMessage: "Une erreur c'est produite"})
+                    reject({errMessage: "Une erreur s'est produite"})
                 }
             }).catch(err => reject(err));
         })
@@ -128,7 +128,7 @@ export default class entrepriseHandler {
                         resolve({success: false});
                     }
                 } else {
-                    reject({errMessage: "Une erreur c'est produite"})
+                    reject({errMessage: "Une erreur s'est produite"})
                 }
             }).catch(err => reject(err));
         })
@@ -148,7 +148,7 @@ export default class entrepriseHandler {
                         resolve({success: false});
                     }
                 } else {
-                    reject({errMessage: "Une erreur c'est produite"})
+                    reject({errMessage: "Une erreur s'est produite"})
                 }
             }).catch(err => reject(err));
         })
