@@ -31,18 +31,17 @@ $(document).ready(function ()
                 dataType: 'json',
                 success: function (data, status)
                 {
-                    localStorage.setItem("api_token", data.token);
-                    localStorage.setItem("entreprise_id", data.id);
-                    listCampaigns();
+                    if(data.errMessage) {
+                        displayError(data.errMessage)
+                    } else {
+                        localStorage.setItem("api_token", data.token);
+                        localStorage.setItem("entreprise_id", data.id);
+                        listCampaigns();
+                    }
                 },
                 error: function (result, status, error)
                 {
-                    $("#error_msg").text("Identifiant ou mot de passe invalide")
-                    setTimeout(function(){
-                        $("#error_msg").text("")
-                    }, 3000)
-                    console.dir(result);
-                    console.dir(error);
+                    displayError("Identifiant ou mot de passe invalide")
                 }
             });
         });
@@ -100,28 +99,36 @@ $(document).ready(function ()
                                     dataType: 'json',
                                     success: function (json, status)
                                     {
-                                        var urlMethod = "";
-                                        if(that.checked) // Si la checkbox est maintenant cochée, on ajoute la campagne
-                                            urlMethod = '/api/v1/entreprises/' + localStorage.getItem('entreprise_id') + '/' + that.getAttribute('id') + '/add';
-                                        else // Sinon on supprime
-                                            urlMethod = '/api/v1/entreprises/' + localStorage.getItem('entreprise_id') + '/' + that.getAttribute('id') + '/remove';
+                                        if(json.errMessage) {
+                                            displayError(json.errMessage)
+                                        } else {
+                                            var urlMethod = "";
+                                            if (that.checked) // Si la checkbox est maintenant cochée, on ajoute la campagne
+                                                urlMethod = '/api/v1/entreprises/' + localStorage.getItem('entreprise_id') + '/' + that.getAttribute('id') + '/add';
+                                            else // Sinon on supprime
+                                                urlMethod = '/api/v1/entreprises/' + localStorage.getItem('entreprise_id') + '/' + that.getAttribute('id') + '/remove';
 
-                                        $.ajax({
-                                            url: urlMethod,
-                                            type: 'PUT',
-                                            headers: {"Authorization": token},
-                                            success: function (json, status) {
-
-                                            },
-                                            error: function (result, status, error) {
-                                                that.checked = !that.checked;
-                                                $('.alert-error').html(error.message);
-                                            }
-                                        });
+                                            $.ajax({
+                                                url: urlMethod,
+                                                type: 'PUT',
+                                                headers: {"Authorization": token},
+                                                success: function (json, status) {
+                                                    if (json.errMessage) {
+                                                        displayError(json.errMessage)
+                                                    } else {
+                                                        displaySucces("modification validée")
+                                                    }
+                                                },
+                                                error: function (result, status, error) {
+                                                    that.checked = !that.checked;
+                                                    displayError(error.message)
+                                                }
+                                            });
+                                        }
                                     },
                                     error: function (error)
                                     {
-                                        $('.alert-error').html(error.message);
+                                        displayError(error.message)
                                     }
                                 });
                             });
@@ -168,40 +175,61 @@ $(document).ready(function ()
         $("#submit-register").unbind('click').bind('click', function (e)
         {
             e.preventDefault();
-            var label = $('#label').val();
-            var email = $('#emailRegister').val();
-            var password = $('#passwordRegister').val();
-            var passwordConfirm = $('#passwordConfirmRegister').val();
-            var url_ad = $('#url-ad').val();
-            var url_picture = $('#url-picture').val();
+            var formData = [];
+            formData['label'] = $('#label').val();
+            formData['email'] = $('#emailRegister').val();
+            formData['password'] = $('#passwordRegister').val();
+            formData['passwordConfirm'] = $('#passwordConfirmRegister').val();
+            formData['url_ad'] = $('#url-ad').val();
+            formData['url_picture'] = $('#url-picture').val();
 
-            if (password === passwordConfirm)
+            var empty = false;
+            for(var i in formData) {
+                if (formData[i] == "") empty = true
+            }
+
+            if (!empty && formData['password'] === formData['passwordConfirm'])
             {
                 $.ajax({
                     url: "/api/v1/entreprises",
                     headers: {"Authorization": token},
                     method: "POST",
                     data: {
-                        label: label,
-                        email: email,
-                        password: password,
-                        url_ad: url_ad,
-                        url_picture: url_picture
+                        label: formData['label'],
+                        email: formData['email'],
+                        password: formData['password'],
+                        url_ad: formData['url_ad'],
+                        url_picture: formData['url_picture']
                     },
-                    success: function ()
+                    success: function (data)
                     {
-                        $('#register-card').hide();
-                        $('#login').show();
+                        if(data.errMessage) {
+                            displayError(data.errMessage)
+                        } else {
+                            $('#register-card').hide();
+                            $('#login').show();
+                        }
                     },
                     error: function (error)
                     {
-                        $('.alert-error').html(error.message);
+                        let e;
+                        if (error.responseJSON.errmsg.match("duplicate")) {
+                            e = "L'adresse email existe déjà"
+                        } else {
+                            e = "Une erreur est survenue, si le probleme persiste, c'ets bien dommage..."
+                        }
+                        displayError(e);
                     }
                 })
             }
             else
             {
-                $('.alert-error').html("Erreur les mots de passes ne corresponde pas");
+                if(empty) {
+                    displayError("Merci de remplir tous les champs");
+                }
+                else if(formData['password'] != formData['passwordConfirm']) {
+                    displayError("Les mots de passe ne correspondent pas");
+                }
             }
         });
     }
@@ -226,21 +254,33 @@ $(document).ready(function ()
                     url: "/api/v1/entreprises/" + id,
                     headers: {"Authorization": token},
                     method: "DELETE",
-                    success: function ()
+                    success: function (data)
                     {
-                        localStorage.removeItem('api_token');
-                        $("#login").show();
-                        $('#register-card').hide();
-                        $("#entreprise").hide();
+                        if(data.errMessage) {
+                            displayError(data.errMessage)
+                        } else {
+                            localStorage.removeItem('api_token');
+                            $("#login").show();
+                            $('#register-card').hide();
+                            $("#entreprise").hide();
+                        }
                     },
                     error: function (error)
                     {
-                        $('.alert-error').html(error.message);
+                        displayError(error.message);
                     }
                 })
             }
 
         });
+    }
+
+    function displayError(msg) {
+        window.scrollTo(0, 0);
+        $("#error_msg").text(msg)
+        setTimeout(function(){
+            $("#error_msg").text("")
+        }, 3000)
     }
 
 });

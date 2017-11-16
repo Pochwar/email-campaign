@@ -2,23 +2,27 @@ import entrepriseModel from "./entrepriseModel";
 import _ from "underscore";
 import jwt from 'jsonwebtoken';
 import bcrypt from 'bcrypt';
+import yaml_config from 'node-yaml-config';
+import path from 'path';
 
 
 export default class entrepriseHandler {
     constructor()
     {
         this.EntrepriseModel = entrepriseModel;
+        this.config = yaml_config.load(path.join(__dirname,'../../config/config.yml'));
     }
 
     login(array)
     {
+        const that = this;
         return new Promise((resolve, reject) =>
         {
             this.EntrepriseModel.findOne({"email": array.email})
                 .then(entreprise => {
                     bcrypt.compare(array.password, entreprise.password, (err, res) => {
                         if (res) {
-                            const token = jwt.sign({ _id: entreprise._id}, 'secret',{ expiresIn: 60 * 60 });
+                            const token = jwt.sign({ _id: entreprise._id}, that.config.APIConfig.token_secret,{ expiresIn: 60 * 60 });
                             resolve({
                                 id: entreprise.id,
                                 token: token
