@@ -1,6 +1,5 @@
 // Middleware to restrict route access
 import jwt from 'jsonwebtoken';
-import _ from 'underscore';
 
 class AccessGranted  {
     // public
