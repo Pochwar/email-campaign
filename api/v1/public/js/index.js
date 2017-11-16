@@ -13,6 +13,7 @@ $(document).ready(function ()
     }
     else
     {
+        $(".button-collapse").sideNav();
         listCampaigns();
         handleDisconnect();
         handleUnsubscribe(token);
