@@ -18,6 +18,7 @@ $(document).ready(function ()
     
     $(".button-collapse").sideNav();
     handleLogin();
+    showLogin();
     handleRegister();
     
     // Gère le submit pour le login
@@ -52,6 +53,7 @@ $(document).ready(function ()
 
     function listCampaigns()
     {
+        document.title = 'Gestion des campagnes';
         var token = getToken();
         if (!token)
         {
@@ -171,10 +173,22 @@ $(document).ready(function ()
     function handleRegister() {
         $('#show-register').unbind('click').bind('click', function (e)
         {
+            document.title = 'Inscription';
             e.preventDefault();
             $('#login').hide();
             $('#register-card').show();
             bindSubmitForRegister();
+        });
+    }
+
+    // Gère l'affichage et la création d'entreprise
+    function showLogin() {
+        $('#show-login').unbind('click').bind('click', function (e)
+        {
+            document.title = 'Connexion';
+            e.preventDefault();
+            $('#login').show();
+            $('#register-card').hide();
         });
     }
 
@@ -246,6 +260,7 @@ $(document).ready(function ()
     function handleDisconnect() {
         $(".but_disconnect").unbind('click').bind('click', function (e) {
             e.preventDefault();
+            document.title = 'Connexion';
             localStorage.removeItem('api_token');
             $("#login").show();
             $('#register-card').hide();
@@ -255,6 +270,7 @@ $(document).ready(function ()
 
     function handleUnsubscribe(token) {
         $(".but_unsubscribe").unbind('click').bind('click', function (e) {
+            document.title = 'Connexion';
             e.preventDefault();
             var c = confirm("Êtes vous sûr de vouloir vous désinscrire ?");
             if (c) {
