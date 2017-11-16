@@ -1,7 +1,6 @@
 // Middleware to restrict route access
 import jwt from 'jsonwebtoken';
-import yaml_config from 'node-yaml-config';
-import path from 'path';
+require('dotenv').config();
 
 class AccessGranted  {
     // public
@@ -12,8 +11,7 @@ class AccessGranted  {
     // can user access member's part ?
     restricted(req, res, next) {
         const token = req.headers.authorization;
-        const config = yaml_config.load(path.join(__dirname,'../../config/config.yml'));
-        jwt.verify(token, config.APIConfig.token_secret, function(err, decoded) {
+        jwt.verify(token, process.env.API_TOKEN_SECRET, function(err, decoded) {
             if (err) {
                 res.status(403).json(
                     {error:"Access forbidden",}
