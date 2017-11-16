@@ -39,7 +39,8 @@ $(document).ready(function ()
                 },
                 error: function (result, status, error)
                 {
-                    console.log(result);
+                    $("#error_msg").text(error)
+                    console.dir(result);
                     console.dir(error);
                 }
             });
@@ -66,7 +67,8 @@ $(document).ready(function ()
                 dataType: 'json',
                 success: function(json, status)
                 {
-                    var campaigns = json.campaign;
+                    $('#display_name_enterprise').text(`Bienvenue ${json.label}`)
+                    var campaigns = json.campaigns;
                     $.ajax({
                         url: '/mock/campaigns',
                         type: 'GET',
@@ -76,8 +78,8 @@ $(document).ready(function ()
                             for(var j = 0; j < json.data.length; j++)
                             {
                                 str += `<input type="checkbox" class="checkCampaign"`
-                                for (var campaignId in campaigns) {
-                                    if (campaignId == json.data[j].id)
+                                for (var id in campaigns) {
+                                    if (campaigns[id] == json.data[j].id)
                                         str += ` checked="checked" `
                                 }
                                 str += `id = ${json.data[j].id} />`
