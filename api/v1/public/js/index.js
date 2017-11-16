@@ -9,15 +9,17 @@ $(document).ready(function ()
         $("#login").show();
 
         // Gère la page register
-        handleRegister(token);
+        handleRegister();
     }
     else
     {
         listCampaigns();
+        handleDisconnect();
+        handleUnsubscribe(token);
     }
 
     handleLogin();
-    handleDisconnect();
+
     
     // Gère le submit pour le login
     function handleLogin() {
@@ -147,18 +149,18 @@ $(document).ready(function ()
     }
 
     // Gère l'affichage et la création d'entreprise
-    function handleRegister(token) {
+    function handleRegister() {
         $('#show-register').unbind('click').bind('click', function (e)
         {
             e.preventDefault();
             $('#login').hide();
             $('#register-card').show();
-            bindSubmitForRegister(token);
+            bindSubmitForRegister();
         });
     }
 
     // Gère le process de création d'entreprise
-    function bindSubmitForRegister(token)
+    function bindSubmitForRegister()
     {
         $("#submit-register").unbind('click').bind('click', function (e)
         {
@@ -208,6 +210,33 @@ $(document).ready(function ()
             $("#login").show();
             $('#register-card').hide();
             $("#entreprise").hide();
+        });
+    }
+
+    function handleUnsubscribe(token) {
+        $("#but_unsubscribe").unbind('click').bind('click', function (e) {
+            e.preventDefault();
+            var c = confirm("Êtes vous sûr de vouloir vous désinscrire ?");
+            if (c) {
+                var id = localStorage.getItem('entreprise_id');
+                $.ajax({
+                    url: "/api/v1/entreprises/" + id,
+                    headers: {"Authorization": token},
+                    method: "DELETE",
+                    success: function ()
+                    {
+                        localStorage.removeItem('api_token');
+                        $("#login").show();
+                        $('#register-card').hide();
+                        $("#entreprise").hide();
+                    },
+                    error: function (error)
+                    {
+                        $('.alert-error').html(error.message);
+                    }
+                })
+            }
+
         });
     }
 
