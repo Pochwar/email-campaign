@@ -86,8 +86,9 @@ $(document).ready(function ()
 
     // Gère l'affichage et la création d'entreprise
     function handleRegister(token) {
-        $('#show-register').unbind('click').bind('click', function ()
+        $('#show-register').unbind('click').bind('click', function (e)
         {
+            e.preventDefault();
             $('#login').hide();
             $('#register-card').show();
             bindSubmitForRegister(token);
@@ -97,8 +98,9 @@ $(document).ready(function ()
     // Gère le process de création d'entreprise
     function bindSubmitForRegister(token)
     {
-        $("#submit-register").unbind('click').bind('click', function ()
+        $("#submit-register").unbind('click').bind('click', function (e)
         {
+            e.preventDefault();
             var label = $('#label').val();
             var email = $('#emailRegister').val();
             var password = $('#passwordRegister').val();
@@ -138,7 +140,8 @@ $(document).ready(function ()
     }
 
     function handleDisconnect() {
-        $("#but_disconnect").unbind('click').bind('click', function () {
+        $("#but_disconnect").unbind('click').bind('click', function (e) {
+            e.preventDefault();
             localStorage.removeItem('api_token');
             $("#login").show();
             $('#register-card').hide();
