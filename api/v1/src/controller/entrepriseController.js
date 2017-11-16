@@ -29,7 +29,10 @@ export default class EntrepriseController
 
         this.entrepriseHandler.login(array)
             .then(data =>  that.sendJsonResponse(res, that.httpStatusService.ok, data))
-            .catch(err => that.sendJsonResponse(res, that.httpStatusService.internalServerError, err));
+            .catch(err => {
+                console.log(err);
+                that.sendJsonResponse(res, that.httpStatusService.internalServerError, err)
+            });
     }
 
     entreprise(req, res) {
