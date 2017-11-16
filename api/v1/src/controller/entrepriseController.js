@@ -98,10 +98,10 @@ export default class EntrepriseController
 
     deleteEntreprises(req, res)
     {
+        const that = this;
         const id = req.params.id;
         if (this.authenticityService.checkAuthenticity(req.decoded._id, id))
         {
-            const that = this;
             this.entrepriseHandler.deleteEntreprises(id)
                 .then(entreprise => that.sendJsonResponse(res, that.httpStatusService.ok, entreprise))
                 .catch(err => that.sendJsonResponse(res, that.httpStatusService.internalServerError, err));
