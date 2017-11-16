@@ -10,35 +10,36 @@ $(document).ready(function ()
     }
     else
     {
+        // Gère la page register
+        handleRegister(token);
         listCampaigns();
     }
 
-    $('#show-register').unbind('click').bind('click', function ()
-    {
-        $('#login').hide();
-        $('#register-card').show();
-        handleRegister();
-    });
 
-    $("#submit").unbind('click').bind('click', function (e)
-    {
-        e.preventDefault();
-        $.ajax({
-            url: '/api/v1/login',
-            type: 'POST',
-            data: {email: $("#email").val(), password: $("#password").val()},
-            dataType: 'json',
-            success: function (data, status)
-            {
-                localStorage.setItem("api_token", data.token);
-                listCampaigns();
-            },
-            error: function (result, status, error)
-            {
-                console.dir(error);
-            }
+
+    handleLogin();
+    // Gère le submit pour le login
+    function handleLogin() {
+        $("#submit").unbind('click').bind('click', function (e)
+        {
+            e.preventDefault();
+            $.ajax({
+                url: '/api/v1/login',
+                type: 'POST',
+                data: {email: $("#email").val(), password: $("#password").val()},
+                dataType: 'json',
+                success: function (data, status)
+                {
+                    localStorage.setItem("api_token", data.token);
+                    listCampaigns();
+                },
+                error: function (result, status, error)
+                {
+                    console.dir(error);
+                }
+            });
         });
-    });
+    }
 
     function listCampaigns()
     {
@@ -68,6 +69,7 @@ $(document).ready(function ()
         }
     }
 
+    // Récupère un token
     function getToken()
     {
         var token = localStorage.getItem('api_token');
@@ -79,7 +81,18 @@ $(document).ready(function ()
         return token;
     }
 
-    function handleRegister()
+    // Gère l'affichage et la création d'entreprise
+    function handleRegister(token) {
+        $('#show-register').unbind('click').bind('click', function ()
+        {
+            $('#login').hide();
+            $('#register-card').show();
+            bindSubmitForRegister(token);
+        });
+    }
+
+    // Gère le process de création d'entreprise
+    function bindSubmitForRegister(token)
     {
         $("#submit-register").unbind('click').bind('click', function ()
         {
