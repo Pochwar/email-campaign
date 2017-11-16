@@ -15,6 +15,25 @@ body {
     display:none;
 }
 
+#error {
+    position: absolute;
+    top: 15px;
+    left: 50%;
+}
+
+#error_msg {
+    width: 150px;
+    display: block;
+    margin: auto;
+    background-color: #f5f5f5;
+    color: #ac2925;
+    font-weight: bold;
+    text-align: center;
+    position: relative;
+    left: -50%;
+    border-radius: 2px;
+}
+
 .login-card .card {
     padding: 40px;
     width: 274px;
