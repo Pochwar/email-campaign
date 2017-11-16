@@ -32,10 +32,12 @@ $(document).ready(function ()
                 success: function (data, status)
                 {
                     localStorage.setItem("api_token", data.token);
+                    localStorage.setItem("entreprise_id", data.id);
                     listCampaigns();
                 },
                 error: function (result, status, error)
                 {
+                    console.log(result);
                     console.dir(error);
                 }
             });

@@ -20,7 +20,7 @@ export default class entrepriseHandler {
                         if (res) {
                             const token = jwt.sign({ _id: entreprise._id}, 'secret',{ expiresIn: 60 * 60 });
                             resolve({
-                                entreprise: entreprise,
+                                id: entreprise.id,
                                 token: token
                             })
                         } else {
@@ -65,7 +65,7 @@ export default class entrepriseHandler {
                 url_ad: array.url_ad,
                 url_picture: array.url_picture,
                 campaign: []
-            }).then(entreprise => resolve(entreprise)).catch(err => reject(err))
+            }).then(entreprise => resolve({create: 'ok'})).catch(err => reject(err))
         })
     }
 
@@ -123,24 +123,38 @@ export default class entrepriseHandler {
     }
 
     checkArrayAndModifyEntreprise(entreprise, array) {
-        if (!_.isNull(array.email))
+        let numberModifiedLigne = 0;
+        if (!_.isNull(array.email)) {
             entreprise.email = array.email;
+            numberModifiedLigne++;
+        }
 
-        if (!_.isNull(array.label))
+        if (!_.isNull(array.label)) {
             entreprise.label = array.label;
+            numberModifiedLigne++;
+        }
 
-        if (!_.isNull(array.password))
+
+        if (!_.isNull(array.password)) {
             entreprise.password = array.password;
+            numberModifiedLigne++;
+        }
 
-        if (!_.isNull(array.url_ad))
+        if (!_.isNull(array.url_ad)) {
             entreprise.url_ad = array.url_ad;
+            numberModifiedLigne++;
+        }
 
-        if (!_.isNull(array.url_picture))
+        if (!_.isNull(array.url_picture)) {
             entreprise.url_picture = array.url_picture;
+            numberModifiedLigne++;
+        }
 
-        if (!_.isNull(array.campaign))
+        if (!_.isNull(array.campaign)) {
             entreprise.campaign = array.campaign;
+            numberModifiedLigne++;
+        }
 
-        return entreprise;
+        return {modified: numberModifiedLigne};
     }
 }
