@@ -3,30 +3,28 @@ import _ from "underscore";
 import HttpStatusService from "../services/httpStatusService";
 import AuthenticityService from "../services/authenticityService";
 
-export default class EntrepriseController
-{
+export default class EntrepriseController {
 
-    constructor()
-    {
+    constructor() {
         this.entrepriseHandler = new EntrepriseHandler();
         this.httpStatusService = new HttpStatusService();
         this.authenticityService = new AuthenticityService();
     }
 
-    index(req, res)
-    {
+    index(req, res) {
         res.render('index');
     }
 
-    register(req, res)
-    {
+    register(req, res) {
         res.render('register');
     }
 
-    login(req, res)
-    {
+    login(req, res) {
         const that = this;
         const param = req.body;
+
+        if (_.isNull(param.email) || _.isNull(param.password))
+            that.sendJsonResponse(res, that.httpStatusService.internalServerError, {message: "Information d'identification non reçus"});
 
         let array = {
             email: param.email,
@@ -35,43 +33,36 @@ export default class EntrepriseController
 
         this.entrepriseHandler.login(array)
             .then(data => that.sendJsonResponse(res, that.httpStatusService.ok, data))
-            .catch(err =>
-            {
-                console.log(err);
-                that.sendJsonResponse(res, that.httpStatusService.internalServerError, err)
-            });
-    }
-
-    entreprise(req, res)
-    {
-        res.render('entreprise');
-    }
-
-    getEntreprises(req, res)
-    {
-        const that = this;
-        this.entrepriseHandler.getEntreprises()
-            .then(entreprise => that.sendJsonResponse(res, that.httpStatusService.ok, entreprise))
             .catch(err => that.sendJsonResponse(res, that.httpStatusService.internalServerError, err));
     }
 
-    getEntrepriseById(req, res)
-    {
+    entreprise(req, res) {
+        res.render('entreprise');
+    }
+
+    getEntreprises(req, res) {
         const that = this;
+        this.entrepriseHandler.getEntreprises()
+            .then(entreprises => that.sendJsonResponse(res, that.httpStatusService.ok, entreprises))
+            .catch(err => that.sendJsonResponse(res, that.httpStatusService.internalServerError, err));
+    }
+
+    getEntrepriseById(req, res) {
+        const that = this;
+        if (_.isNull(req.params.id))
+            that.sendJsonResponse(res, that.httpStatusService.internalServerError, {message: "Parametre manquant"});
         const id = req.params.id;
         this.entrepriseHandler.getEntreprisesById(id)
             .then(entreprise => that.sendJsonResponse(res, that.httpStatusService.ok, entreprise))
             .catch(err => that.sendJsonResponse(res, that.httpStatusService.internalServerError, err));
     }
 
-    postEntreprise(req, res)
-    {
+    postEntreprise(req, res) {
         const that = this;
         let array = this.setArrayFromBody(req.body);
-        Object.entries(array).forEach(([key, value]) =>
-        {
+        Object.entries(array).forEach(([key, value]) => {
             if (_.isNull(value))
-                this.sendJsonResponse(res, that.httpStatusService.internalServerError, {message: "Missing parameters"});
+                this.sendJsonResponse(res, that.httpStatusService.internalServerError, {message: "Parametre manquant"});
         });
         this.entrepriseHandler.postEntreprise(array)
             .then(entreprise => that.sendJsonResponse(res, that.httpStatusService.ok, entreprise))
@@ -79,42 +70,41 @@ export default class EntrepriseController
 
     }
 
-    putEntreprises(req, res)
-    {
+    putEntreprises(req, res) {
         const that = this;
+        if (_.isNull(req.params.id))
+            that.sendJsonResponse(res, that.httpStatusService.internalServerError, {message: "Parametre manquant"});
         const id = req.params.id;
-        if (this.authenticityService.checkAuthenticity(req.decoded._id, id))
-        {
+        if (this.authenticityService.checkAuthenticity(req.decoded._id, id)) {
             let array = this.setArrayFromBody(req.body);
             this.entrepriseHandler.putEntreprise(id, array)
                 .then(entreprise => that.sendJsonResponse(res, that.httpStatusService.ok, entreprise))
                 .catch(err => that.sendJsonResponse(res, that.httpStatusService.internalServerError, err));
         }
-        else
-        {
+        else {
             that.sendJsonResponse(res, that.httpStatusService.unauthorized, {message: "Vous ne pouvez pas effectuer cette action"});
         }
     }
 
-    deleteEntreprises(req, res)
-    {
+    deleteEntreprises(req, res) {
         const that = this;
+        if (_.isNull(req.params.id))
+            that.sendJsonResponse(res, that.httpStatusService.internalServerError, {message: "Parametre manquant"});
         const id = req.params.id;
-        if (this.authenticityService.checkAuthenticity(req.decoded._id, id))
-        {
+        if (this.authenticityService.checkAuthenticity(req.decoded._id, id)) {
             this.entrepriseHandler.deleteEntreprises(id)
                 .then(entreprise => that.sendJsonResponse(res, that.httpStatusService.ok, entreprise))
                 .catch(err => that.sendJsonResponse(res, that.httpStatusService.internalServerError, err));
         }
-        else
-        {
+        else {
             that.sendJsonResponse(res, that.httpStatusService.unauthorized, {message: "Vous ne pouvez pas effectuer cette action"})
         }
     }
 
-    addCampaign(req, res)
-    {
+    addCampaign(req, res) {
         const that = this;
+        if (_.isNull(req.params.entrepriseId) || _.isNull(req.params.campaignId))
+            that.sendJsonResponse(res, that.httpStatusService.internalServerError, {message: "Parametre manquant"});
         const entrepriseId = req.params.entrepriseId;
         const campaignId = req.params.campaignId;
         if (this.authenticityService.checkAuthenticity(req.decoded._id, entrepriseId))
@@ -123,37 +113,33 @@ export default class EntrepriseController
                 .then(entreprises => that.sendJsonResponse(res, that.httpStatusService.ok, entreprises))
                 .catch(err => that.sendJsonResponse(res, that.httpStatusService.internalServerError, err))
         }
-        else
-        {
+        else {
             that.sendJsonResponse(res, that.httpStatusService.unauthorized, {message: "Vous ne pouvez pas effectuer cette action"})
         }
     }
 
-    removeCampaign(req, res)
-    {
+    removeCampaign(req, res) {
         const that = this;
+        if (_.isNull(req.params.entrepriseId) || _.isNull(req.params.campaignId))
+            that.sendJsonResponse(res, that.httpStatusService.internalServerError, {message: "Parametre manquant"});
         const entrepriseId = req.params.entrepriseId;
         const campaignId = req.params.campaignId;
-        if (this.authenticityService.checkAuthenticity(req.decoded._id, entrepriseId))
-        {
+        if (this.authenticityService.checkAuthenticity(req.decoded._id, entrepriseId)) {
             this.entrepriseHandler.removeCampaign(entrepriseId, campaignId)
                 .then(entreprise => that.sendJsonResponse(res, that.httpStatusService.ok, entreprise))
                 .catch(err => that.sendJsonResponse(res, that.httpStatusService.internalServerError, err));
         }
-        else
-        {
+        else {
             that.sendJsonResponse(res, that.httpStatusService.unauthorized, {message: "Vous ne pouvez pas effectuer cette action"})
         }
     }
 
-    sendJsonResponse(res, code, content)
-    {
+    sendJsonResponse(res, code, content) {
         res.status(code);
         res.json(content);
     }
 
-    setArrayFromBody(body)
-    {
+    setArrayFromBody(body) {
         let array = {};
         array.label = (!_.isNull(body.label) && typeof body.label !== "undefined") ? body.label : null;
         array.email = (!_.isNull(body.email) && typeof body.email !== "undefined") ? body.email : null;

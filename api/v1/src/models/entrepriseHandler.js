@@ -5,38 +5,38 @@ import bcrypt from 'bcrypt';
 
 
 export default class entrepriseHandler {
-    constructor()
-    {
+    constructor() {
         this.EntrepriseModel = entrepriseModel;
     }
 
-    login(array)
-    {
-        return new Promise((resolve, reject) =>
-        {
+    login(array) {
+        return new Promise((resolve, reject) => {
             this.EntrepriseModel.findOne({"email": array.email})
                 .then(entreprise => {
-                    bcrypt.compare(array.password, entreprise.password, (err, res) => {
-                        if (res) {
-                            const token = jwt.sign({ _id: entreprise._id}, 'secret',{ expiresIn: 60 * 60 });
-                            resolve({
-                                id: entreprise.id,
-                                token: token
-                            })
-                        } else {
-                            reject(err)
-                        }
-                    })
-
+                    if (!_.isNull(entreprise)) {
+                        bcrypt.compare(array.password, entreprise.password, (err, res) => {
+                            if (res) {
+                                const token = jwt.sign({_id: entreprise._id}, 'secret', {expiresIn: 60 * 60});
+                                resolve({
+                                    id: entreprise.id,
+                                    token: token
+                                })
+                            }
+                            else {
+                                reject(err)
+                            }
+                        })
+                    }
+                    else {
+                        reject({message: "Identifiant/mot de passe invalide"})
+                    }
                 })
                 .catch(err => reject(err));
         });
     }
 
-    getEntreprises()
-    {
-        return new Promise((resolve, reject) =>
-        {
+    getEntreprises() {
+        return new Promise((resolve, reject) => {
             this.EntrepriseModel.find({})
                 .then(entreprises => {
                     let arrayOfObject = [];
@@ -55,27 +55,30 @@ export default class entrepriseHandler {
         });
     }
 
-    getEntreprisesById(id)
-    {
-        return new Promise((resolve, reject) =>
-        {
+    getEntreprisesById(id) {
+        return new Promise((resolve, reject) => {
             this.EntrepriseModel.findOne({"_id": id})
-                .then(entreprise => resolve({
-                    id: entreprise._id,
-                    label: entreprise.label,
-                    url_ad: entreprise.url_ad,
-                    url_picture: entreprise.url_picture,
-                    campaigns: entreprise.campaign
-                }))
+                .then(entreprise => {
+                    if (!_.isNull(entreprise)) {
+                        resolve({
+                            id: entreprise._id,
+                            label: entreprise.label,
+                            url_ad: entreprise.url_ad,
+                            url_picture: entreprise.url_picture,
+                            campaigns: entreprise.campaign
+                        });
+                    }
+                    else {
+                        reject({message: "Une erreur c'est produite"});
+                    }
+                })
                 .catch(err => reject(err));
         });
     }
 
-    postEntreprise(array)
-    {
-        const password = bcrypt.hashSync(array.password, 10);console.log(password);
-        return new Promise((resolve, reject) =>
-        {
+    postEntreprise(array) {
+        const password = bcrypt.hashSync(array.password, 10);
+        return new Promise((resolve, reject) => {
             this.EntrepriseModel.create({
                 label: array.label,
                 email: array.email,
@@ -87,65 +90,57 @@ export default class entrepriseHandler {
         })
     }
 
-    putEntreprise(id, array)
-    {
-        return new Promise((resolve, reject) =>
-        {
-            this.getEntreprisesById(id).then(entreprise =>
-            {
-                let modifiedEntreprise = this.checkArrayAndModifyEntreprise(entreprise, array);
-                modifiedEntreprise.entreprise.save();
-                resolve({
-                    modified: modifiedEntreprise.modified
-                });
-            }).catch(err => reject(err));
-        })
-    }
-
-    deleteEntreprises(id)
-    {
-        return new Promise((resolve, reject) =>
-        {
-            this.EntrepriseModel.remove({'_id': id}).then(result => resolve({success: true}))
-                .catch(e => reject(e));
-        });
-    }
-
-    removeCampaign(entrepriseId, campaignId)
-    {
-        return new Promise((resolve, reject) =>
-        {
-            this.EntrepriseModel.findOne({"_id": entrepriseId}).then(entreprise => {
-                if(!_.isNull(campaignId))
-                {
-                    let index = entreprise.campaign.indexOf(campaignId);
-                    if(index !== -1) {
-                        entreprise.campaign.splice(index, 1);
-                        entreprise.save();
-                        resolve({success: true});
-                    } else {
-                        resolve({success: false});
-                    }
+    putEntreprise(id, array) {
+        return new Promise((resolve, reject) => {
+            this.getEntreprisesById(id).then(entreprise => {
+                if (!_.isNull(entreprise)) {
+                    let returnedObject = this.checkArrayAndModifyEntreprise(entreprise, array);
+                    returnedObject.entreprise.save();
+                    resolve({
+                        modified: returnedObject.modified
+                    });
+                }
+                else {
+                    reject({message: "Une erreur c'est produite"})
                 }
             }).catch(err => reject(err));
         })
     }
 
-    addCampaign(entrepriseId, campaignId)
-    {
-        return new Promise((resolve, reject) =>
-        {
+    deleteEntreprises(id) {
+        return new Promise((resolve, reject) => {
+            this.EntrepriseModel.remove({'_id': id}).then(result => resolve({success: true}))
+                .catch(e => reject(e));
+        });
+    }
+
+    removeCampaign(entrepriseId, campaignId) {
+        return new Promise((resolve, reject) => {
             this.EntrepriseModel.findOne({"_id": entrepriseId}).then(entreprise => {
-                if(!_.isNull(campaignId))
-                {
-                    let index = entreprise.campaign.indexOf(campaignId);
-                    if(index === -1) {
-                        entreprise.campaign.push(campaignId);
-                        entreprise.save();
-                        resolve({success: true});
-                    } else {
-                        resolve({success: false});
-                    }
+                let index = entreprise.campaign.indexOf(campaignId);
+                if (index !== -1) {
+                    entreprise.campaign.splice(index, 1);
+                    entreprise.save();
+                    resolve({success: true});
+                }
+                else {
+                    resolve({success: false});
+                }
+            }).catch(err => reject(err));
+        })
+    }
+
+    addCampaign(entrepriseId, campaignId) {
+        return new Promise((resolve, reject) => {
+            this.EntrepriseModel.findOne({"_id": entrepriseId}).then(entreprise => {
+                let index = entreprise.campaign.indexOf(campaignId);
+                if (index === -1) {
+                    entreprise.campaign.push(campaignId);
+                    entreprise.save();
+                    resolve({success: true});
+                }
+                else {
+                    resolve({success: false});
                 }
             }).catch(err => reject(err));
         })
