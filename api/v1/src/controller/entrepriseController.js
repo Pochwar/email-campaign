@@ -117,7 +117,7 @@ export default class EntrepriseController
         const that = this;
         const entrepriseId = req.params.entrepriseId;
         const campaignId = req.params.campaignId;
-        if (this.authenticityService.checkAuthenticity(req.decoded._id, id))
+        if (this.authenticityService.checkAuthenticity(req.decoded._id, entrepriseId))
         {
             this.entrepriseHandler.addCampaign(entrepriseId, campaignId)
                 .then(entreprises => that.sendJsonResponse(res, that.httpStatusService.ok, entreprises))
@@ -134,7 +134,7 @@ export default class EntrepriseController
         const that = this;
         const entrepriseId = req.params.entrepriseId;
         const campaignId = req.params.campaignId;
-        if (this.authenticityService.checkAuthenticity(req.decoded._id, id))
+        if (this.authenticityService.checkAuthenticity(req.decoded._id, entrepriseId))
         {
             this.entrepriseHandler.removeCampaign(entrepriseId, campaignId)
                 .then(entreprise => that.sendJsonResponse(res, that.httpStatusService.ok, entreprise))
