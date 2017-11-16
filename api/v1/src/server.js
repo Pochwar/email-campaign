@@ -62,7 +62,7 @@ export default class Server {
          *     }
          */
         this._app.post('/api/v1/login', accessGranted.public, entrepriseController.login.bind(entrepriseController));
-        /**
+         /**
          * @api {get} /api/v1/entreprises Get all entreprises
          * @apiGroup Entreprises
          * @apiHeader Authorization a valid access token
@@ -90,7 +90,7 @@ export default class Server {
          *     ]
          */
         this._app.get('/api/v1/entreprises', accessGranted.restricted, entrepriseController.getEntreprises.bind(entrepriseController));
-        /**
+         /**
          * @api {get} /api/v1/entreprises/:entrepriseId Get entreprise
          * @apiGroup Entreprises
          * @apiHeader Authorization a valid access token
@@ -123,8 +123,8 @@ export default class Server {
          *         "create": "ok"
          *     }
          */
-        this._app.post('/api/v1/entreprises', accessGranted.restricted, entrepriseController.postEntreprise.bind(entrepriseController));
-        /**
+        this._app.post('/api/v1/entreprises', accessGranted.public, entrepriseController.postEntreprise.bind(entrepriseController));
+         /**
          * @api {put} /api/v1/entreprises/:entrepriseId Edit entreprise
          * @apiGroup Entreprises
          * @apiHeader Authorization a valid access token
@@ -144,7 +144,7 @@ export default class Server {
          *     }
          */
         this._app.put('/api/v1/entreprises/:id', accessGranted.restricted, entrepriseController.putEntreprises.bind(entrepriseController));
-        /**
+         /**
          * @api {delete} /api/v1/entreprises/:entrepriseId Delete entreprise
          * @apiGroup Entreprises
          * @apiHeader Authorization a valid access token
@@ -159,7 +159,7 @@ export default class Server {
          *     }
          */
         this._app.delete('/api/v1/entreprises/:id', accessGranted.restricted, entrepriseController.deleteEntreprises.bind(entrepriseController));
-        /**
+         /**
          * @api {put} /api/v1/entreprises/:entrepriseId/:campaignId/add Add a campaign for a company
          * @apiGroup Entreprises
          * @apiHeader Authorization a valid access token
@@ -174,7 +174,7 @@ export default class Server {
          *     }
          */
         this._app.put('/api/v1/entreprises/:entrepriseId/:campaignId/add', accessGranted.restricted, entrepriseController.addCampaign.bind(entrepriseController));
-        /**
+         /**
          * @api {put} /api/v1/entreprises/:entrepriseId/:campaignId/remove Remove a campaign for a company
          * @apiGroup Entreprises
          * @apiHeader Authorization a valid access token
@@ -188,7 +188,7 @@ export default class Server {
          *         "success": true
          *     }
          */
-        this._app.put('/api/v1/entreprise/:entrepriseId/:campaignId/remove', accessGranted.restricted, entrepriseController.removeCampaign.bind(entrepriseController));
+        this._app.put('/api/v1/entreprises/:entrepriseId/:campaignId/remove', accessGranted.restricted, entrepriseController.removeCampaign.bind(entrepriseController));
     }
 
     run()

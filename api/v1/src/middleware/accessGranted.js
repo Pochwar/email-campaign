@@ -1,13 +1,8 @@
 // Middleware to restrict route access
 import jwt from 'jsonwebtoken';
-// import localStorage from 'localStorage';
+import _ from 'underscore';
 
 class AccessGranted  {
-
-    // constructor save config
-    constructor() {
-    }
-
     // public
     public(req, res, next) {
         next();
@@ -15,19 +10,18 @@ class AccessGranted  {
 
     // can user access member's part ?
     restricted(req, res, next) {
-        console.log(req.headers);
-       //todo -> get token from header request
-        // jwt.verify(token, 'secret');
-        const test = true;
-        // invalid req
-        if(!test) {
-            res.status(403).json(
-                {error:"Access forbidden",}
-            );
-        }
-        else {
-            next();
-        }
+        const token = req.headers.authorization;
+        jwt.verify(token, 'secret', function(err, decoded) {
+            if (err) {
+                res.status(403).json(
+                    {error:"Access forbidden",}
+                );
+            }
+            else {
+                req.decoded = decoded;
+                next();
+            }
+        });
     }
 }
 

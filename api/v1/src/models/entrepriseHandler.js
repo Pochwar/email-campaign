@@ -20,7 +20,7 @@ export default class entrepriseHandler {
                         if (res) {
                             const token = jwt.sign({ _id: entreprise._id}, 'secret',{ expiresIn: 60 * 60 });
                             resolve({
-                                entreprise: entreprise,
+                                id: entreprise.id,
                                 token: token
                             })
                         } else {
@@ -38,7 +38,19 @@ export default class entrepriseHandler {
         return new Promise((resolve, reject) =>
         {
             this.EntrepriseModel.find({})
-                .then(entreprises => resolve(entreprises))
+                .then(entreprises => {
+                    let arrayOfObject = [];
+                    entreprises.forEach(entreprise => {
+                        arrayOfObject.push({
+                            id: entreprise._id,
+                            label: entreprise.label,
+                            url_ad: entreprise.url_ad,
+                            url_picture: entreprise.url_picture,
+                            campaigns: entreprise.campaign
+                        })
+                    });
+                    resolve(arrayOfObject)
+                })
                 .catch(err => reject(err));
         });
     }
@@ -48,7 +60,13 @@ export default class entrepriseHandler {
         return new Promise((resolve, reject) =>
         {
             this.EntrepriseModel.findOne({"_id": id})
-                .then(entreprises => resolve(entreprises))
+                .then(entreprise => resolve({
+                    id: entreprise._id,
+                    label: entreprise.label,
+                    url_ad: entreprise.url_ad,
+                    url_picture: entreprise.url_picture,
+                    campaigns: entreprise.campaign
+                }))
                 .catch(err => reject(err));
         });
     }
@@ -65,7 +83,7 @@ export default class entrepriseHandler {
                 url_ad: array.url_ad,
                 url_picture: array.url_picture,
                 campaign: []
-            }).then(entreprise => resolve(entreprise)).catch(err => reject(err))
+            }).then(entreprise => resolve({create: 'ok'})).catch(err => reject(err))
         })
     }
 
@@ -76,8 +94,10 @@ export default class entrepriseHandler {
             this.getEntreprisesById(id).then(entreprise =>
             {
                 let modifiedEntreprise = this.checkArrayAndModifyEntreprise(entreprise, array);
-                modifiedEntreprise.save();
-                resolve(modifiedEntreprise);
+                modifiedEntreprise.entreprise.save();
+                resolve({
+                    modified: modifiedEntreprise.modified
+                });
             }).catch(err => reject(err));
         })
     }
@@ -86,7 +106,7 @@ export default class entrepriseHandler {
     {
         return new Promise((resolve, reject) =>
         {
-            this.EntrepriseModel.remove({'_id': id}).then(result => resolve(result))
+            this.EntrepriseModel.remove({'_id': id}).then(result => resolve({success: true}))
                 .catch(e => reject(e));
         });
     }
@@ -95,16 +115,19 @@ export default class entrepriseHandler {
     {
         return new Promise((resolve, reject) =>
         {
-            this.getEntreprisesById(entrepriseId)
-                .then(entreprise =>
+            this.EntrepriseModel.findOne({"_id": entrepriseId}).then(entreprise => {
+                if(!_.isNull(campaignId))
                 {
                     let index = entreprise.campaign.indexOf(campaignId);
-                    console.log(campaignId);
-                    console.log(index);
-                    entreprise.campaign.splice(index, 1);
-                    entreprise.save();
-                    resolve(entreprise);
-                }).catch(err => reject(err))
+                    if(index !== -1) {
+                        entreprise.campaign.splice(index, 1);
+                        entreprise.save();
+                        resolve({success: true});
+                    } else {
+                        resolve({success: false});
+                    }
+                }
+            }).catch(err => reject(err));
         })
     }
 
@@ -112,35 +135,53 @@ export default class entrepriseHandler {
     {
         return new Promise((resolve, reject) =>
         {
-            this.getEntreprisesById(entrepriseId).then(entreprises =>
-            {
+            this.EntrepriseModel.findOne({"_id": entrepriseId}).then(entreprise => {
                 if(!_.isNull(campaignId))
-                    entreprises.campaign.push(campaignId);
-                entreprises.save();
-                resolve(entreprises);
+                {
+                    let index = entreprise.campaign.indexOf(campaignId);
+                    if(index === -1) {
+                        entreprise.campaign.push(campaignId);
+                        entreprise.save();
+                        resolve({success: true});
+                    } else {
+                        resolve({success: false});
+                    }
+                }
             }).catch(err => reject(err));
         })
     }
 
     checkArrayAndModifyEntreprise(entreprise, array) {
-        if (!_.isNull(array.email))
+        let numberModifiedLigne = 0;
+        if (!_.isNull(array.email)) {
             entreprise.email = array.email;
+            numberModifiedLigne++;
+        }
 
-        if (!_.isNull(array.label))
+        if (!_.isNull(array.label)) {
             entreprise.label = array.label;
+            numberModifiedLigne++;
+        }
 
-        if (!_.isNull(array.password))
+
+        if (!_.isNull(array.password)) {
             entreprise.password = array.password;
+            numberModifiedLigne++;
+        }
 
-        if (!_.isNull(array.url_ad))
+        if (!_.isNull(array.url_ad)) {
             entreprise.url_ad = array.url_ad;
+            numberModifiedLigne++;
+        }
 
-        if (!_.isNull(array.url_picture))
+        if (!_.isNull(array.url_picture)) {
             entreprise.url_picture = array.url_picture;
+            numberModifiedLigne++;
+        }
 
-        if (!_.isNull(array.campaign))
-            entreprise.campaign = array.campaign;
-
-        return entreprise;
+        return {
+            entreprise: entreprise,
+            modified: numberModifiedLigne
+        };
     }
 }
