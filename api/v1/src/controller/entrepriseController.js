@@ -118,7 +118,6 @@ export default class EntrepriseController
         array.password = (!_.isNull(body.password) && typeof body.password !== "undefined") ? body.password : null;
         array.url_ad = (!_.isNull(body.url_ad) && typeof body.url_ad !== "undefined") ? body.url_ad : null;
         array.url_picture = (!_.isNull(body.url_picture) && typeof body.url_picture !== "undefined") ? body.url_picture : null;
-        array.campaign = (!_.isNull(body.campaign) && typeof body.campaign !== "undefined") ? body.campaign : null;
         return array
     }
 }
