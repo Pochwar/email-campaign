@@ -1,7 +1,7 @@
 $(document).ready(function ()
 {
     var token = getToken();
-    var myTimeout
+    var myTimeout;
 
     if (!token)
     {
@@ -11,12 +11,12 @@ $(document).ready(function ()
     }
     else
     {
-        $(".button-collapse").sideNav();
         listCampaigns();
         handleDisconnect();
         handleUnsubscribe(token);
     }
-
+    
+    $(".button-collapse").sideNav();
     handleLogin();
     handleRegister();
     
@@ -37,6 +37,8 @@ $(document).ready(function ()
                     } else {
                         localStorage.setItem("api_token", data.token);
                         localStorage.setItem("entreprise_id", data.id);
+                        handleDisconnect();
+                        handleUnsubscribe(data.token);
                         listCampaigns();
                     }
                 },
