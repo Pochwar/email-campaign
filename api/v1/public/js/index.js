@@ -16,9 +16,9 @@ $(document).ready(function ()
         listCampaigns();
     }
 
-
-
     handleLogin();
+    handleDisconnect();
+    
     // Gère le submit pour le login
     function handleLogin() {
         $("#submit").unbind('click').bind('click', function (e)
@@ -135,11 +135,13 @@ $(document).ready(function ()
         });
     }
 
-    function disconnect() {
-        localStorage.removeItem('api_token');
-        $("#login").show();
-        $('#register-card').hide();
-        $("#entreprise").hide();
+    function handleDisconnect() {
+        $("#but_disconnect").unbind('click').bind('click', function () {
+            localStorage.removeItem('api_token');
+            $("#login").show();
+            $('#register-card').hide();
+            $("#entreprise").hide();
+        });
     }
 
 });

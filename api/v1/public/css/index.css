@@ -11,6 +11,9 @@ body {
     line-height: 26px;
     font-family: 'Roboto', sans-serif;
 }
+#login, #entreprise, #register-card {
+    display:none;
+}
 
 .login-card .card {
     padding: 40px;
