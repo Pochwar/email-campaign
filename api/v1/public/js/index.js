@@ -1,6 +1,7 @@
 $(document).ready(function ()
 {
     var token = getToken();
+    var myTimeout
 
     if (!token)
     {
@@ -67,7 +68,13 @@ $(document).ready(function ()
                 dataType: 'json',
                 success: function(json, status)
                 {
-                    $('.display_name_enterprise').text(`Bienvenue ${json.label}`)
+                    console.dir(json)
+                    $('.display_name_enterprise').text(`Bienvenue ${json.label}`);
+                    $('#ad_url').text(json.url_ad);
+                    var img = `<img src="${json.url_picture}" width="150px">`
+                    $('#img_url').html(img);
+
+
                     var campaigns = json.campaigns;
                     $.ajax({
                         url: '/mock/campaigns',
@@ -116,7 +123,7 @@ $(document).ready(function ()
                                                     if (json.errMessage) {
                                                         displayError(json.errMessage)
                                                     } else {
-                                                        displaySucces("modification validée")
+                                                        displaySuccess("modification validée")
                                                     }
                                                 },
                                                 error: function (result, status, error) {
@@ -277,10 +284,20 @@ $(document).ready(function ()
 
     function displayError(msg) {
         window.scrollTo(0, 0);
-        $("#error_msg").text(msg)
-        setTimeout(function(){
+        clearTimeout(myTimeout);
+        $("#error_msg").text(msg);
+        myTimeout = setTimeout(function(){
             $("#error_msg").text("")
-        }, 3000)
+        }, 3000);
+    }
+
+    function displaySuccess(msg) {
+        window.scrollTo(0, 0);
+        clearTimeout(myTimeout);
+        $("#success_msg").text(msg);
+        myTimeout = setTimeout(function(){
+            $("#success_msg").text("")
+        }, 3000);
     }
 
 });
