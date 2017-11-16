@@ -13,7 +13,7 @@ A school project to learn restful API's
 ## Installation
 
 - Clone repository : `git clone https://github.com/Pochwar/email-campaign.git`
-- Copy `api/v1/config/configDefault.yml` to `api/v1/config/config.yml` and define database credentials. With docker, database host is `mongo`
+- Copy `api/v1/.env.exemple` to `api/v1/.env` and define database credentials and Api Token Secret. With docker, database host is `mongo`
 - Install packages : go to `api/v1` and run `npm install`
 
 ### Developement
