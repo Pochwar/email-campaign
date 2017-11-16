@@ -40,7 +40,10 @@ $(document).ready(function ()
                 },
                 error: function (result, status, error)
                 {
-                    $("#error_msg").text(error)
+                    $("#error_msg").text("Identifiant ou mot de passe invalide")
+                    setTimeout(function(){
+                        $("#error_msg").text("")
+                    }, 3000)
                     console.dir(result);
                     console.dir(error);
                 }
