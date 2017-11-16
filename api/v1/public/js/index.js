@@ -7,9 +7,6 @@ $(document).ready(function ()
         $('#register-card').hide();
         $("#entreprise").hide();
         $("#login").show();
-
-        // Gère la page register
-        handleRegister();
     }
     else
     {
@@ -20,7 +17,7 @@ $(document).ready(function ()
     }
 
     handleLogin();
-
+    handleRegister();
     
     // Gère le submit pour le login
     function handleLogin() {
@@ -210,7 +207,7 @@ $(document).ready(function ()
     }
 
     function handleDisconnect() {
-        $("#but_disconnect").unbind('click').bind('click', function (e) {
+        $(".but_disconnect").unbind('click').bind('click', function (e) {
             e.preventDefault();
             localStorage.removeItem('api_token');
             $("#login").show();
@@ -220,7 +217,7 @@ $(document).ready(function ()
     }
 
     function handleUnsubscribe(token) {
-        $("#but_unsubscribe").unbind('click').bind('click', function (e) {
+        $(".but_unsubscribe").unbind('click').bind('click', function (e) {
             e.preventDefault();
             var c = confirm("Êtes vous sûr de vouloir vous désinscrire ?");
             if (c) {
