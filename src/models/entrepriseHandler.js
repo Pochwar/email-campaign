@@ -2,7 +2,6 @@ import entrepriseModel from "./entrepriseModel";
 import _ from "underscore";
 import jwt from 'jsonwebtoken';
 import bcrypt from 'bcrypt';
-require('dotenv').config();
 
 
 export default class entrepriseHandler {

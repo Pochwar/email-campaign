@@ -1,4 +1,3 @@
-require('dotenv').config();
 import Mongoose from "mongoose";
 
 export default class mongooseHandler

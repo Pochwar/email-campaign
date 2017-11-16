@@ -1,6 +1,5 @@
 // Middleware to restrict route access
 import jwt from 'jsonwebtoken';
-require('dotenv').config();
 
 class AccessGranted  {
     // public
