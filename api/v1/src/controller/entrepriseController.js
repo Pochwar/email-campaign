@@ -24,7 +24,7 @@ export default class EntrepriseController {
         const param = req.body;
 
         if (_.isNull(param.email) || _.isNull(param.password))
-            that.sendJsonResponse(res, that.httpStatusService.internalServerError, {message: "Information d'identification non reçus"});
+            that.sendJsonResponse(res, that.httpStatusService.internalServerError, {errMessage: "Information d'identification non reçus"});
 
         let array = {
             email: param.email,
@@ -50,7 +50,7 @@ export default class EntrepriseController {
     getEntrepriseById(req, res) {
         const that = this;
         if (_.isNull(req.params.id))
-            that.sendJsonResponse(res, that.httpStatusService.internalServerError, {message: "Parametre manquant"});
+            that.sendJsonResponse(res, that.httpStatusService.internalServerError, {errMessage: "Parametre manquant"});
         const id = req.params.id;
         this.entrepriseHandler.getEntreprisesById(id)
             .then(entreprise => that.sendJsonResponse(res, that.httpStatusService.ok, entreprise))
@@ -62,7 +62,7 @@ export default class EntrepriseController {
         let array = this.setArrayFromBody(req.body);
         Object.entries(array).forEach(([key, value]) => {
             if (_.isNull(value))
-                this.sendJsonResponse(res, that.httpStatusService.internalServerError, {message: "Parametre manquant"});
+                this.sendJsonResponse(res, that.httpStatusService.internalServerError, {errMessage: "Parametre manquant"});
         });
         this.entrepriseHandler.postEntreprise(array)
             .then(entreprise => that.sendJsonResponse(res, that.httpStatusService.ok, entreprise))
@@ -73,7 +73,7 @@ export default class EntrepriseController {
     putEntreprises(req, res) {
         const that = this;
         if (_.isNull(req.params.id))
-            that.sendJsonResponse(res, that.httpStatusService.internalServerError, {message: "Parametre manquant"});
+            that.sendJsonResponse(res, that.httpStatusService.internalServerError, {errMessage: "Parametre manquant"});
         const id = req.params.id;
         if (this.authenticityService.checkAuthenticity(req.decoded._id, id)) {
             let array = this.setArrayFromBody(req.body);
@@ -82,14 +82,14 @@ export default class EntrepriseController {
                 .catch(err => that.sendJsonResponse(res, that.httpStatusService.internalServerError, err));
         }
         else {
-            that.sendJsonResponse(res, that.httpStatusService.unauthorized, {message: "Vous ne pouvez pas effectuer cette action"});
+            that.sendJsonResponse(res, that.httpStatusService.unauthorized, {errMessage: "Vous ne pouvez pas effectuer cette action"});
         }
     }
 
     deleteEntreprises(req, res) {
         const that = this;
         if (_.isNull(req.params.id))
-            that.sendJsonResponse(res, that.httpStatusService.internalServerError, {message: "Parametre manquant"});
+            that.sendJsonResponse(res, that.httpStatusService.internalServerError, {errMessage: "Parametre manquant"});
         const id = req.params.id;
         if (this.authenticityService.checkAuthenticity(req.decoded._id, id)) {
             this.entrepriseHandler.deleteEntreprises(id)
@@ -97,14 +97,14 @@ export default class EntrepriseController {
                 .catch(err => that.sendJsonResponse(res, that.httpStatusService.internalServerError, err));
         }
         else {
-            that.sendJsonResponse(res, that.httpStatusService.unauthorized, {message: "Vous ne pouvez pas effectuer cette action"})
+            that.sendJsonResponse(res, that.httpStatusService.unauthorized, {errMessage: "Vous ne pouvez pas effectuer cette action"})
         }
     }
 
     addCampaign(req, res) {
         const that = this;
         if (_.isNull(req.params.entrepriseId) || _.isNull(req.params.campaignId))
-            that.sendJsonResponse(res, that.httpStatusService.internalServerError, {message: "Parametre manquant"});
+            that.sendJsonResponse(res, that.httpStatusService.internalServerError, {errMessage: "Parametre manquant"});
         const entrepriseId = req.params.entrepriseId;
         const campaignId = req.params.campaignId;
         if (this.authenticityService.checkAuthenticity(req.decoded._id, entrepriseId))
@@ -114,14 +114,14 @@ export default class EntrepriseController {
                 .catch(err => that.sendJsonResponse(res, that.httpStatusService.internalServerError, err))
         }
         else {
-            that.sendJsonResponse(res, that.httpStatusService.unauthorized, {message: "Vous ne pouvez pas effectuer cette action"})
+            that.sendJsonResponse(res, that.httpStatusService.unauthorized, {errMessage: "Vous ne pouvez pas effectuer cette action"})
         }
     }
 
     removeCampaign(req, res) {
         const that = this;
         if (_.isNull(req.params.entrepriseId) || _.isNull(req.params.campaignId))
-            that.sendJsonResponse(res, that.httpStatusService.internalServerError, {message: "Parametre manquant"});
+            that.sendJsonResponse(res, that.httpStatusService.internalServerError, {errMessage: "Parametre manquant"});
         const entrepriseId = req.params.entrepriseId;
         const campaignId = req.params.campaignId;
         if (this.authenticityService.checkAuthenticity(req.decoded._id, entrepriseId)) {
@@ -130,7 +130,7 @@ export default class EntrepriseController {
                 .catch(err => that.sendJsonResponse(res, that.httpStatusService.internalServerError, err));
         }
         else {
-            that.sendJsonResponse(res, that.httpStatusService.unauthorized, {message: "Vous ne pouvez pas effectuer cette action"})
+            that.sendJsonResponse(res, that.httpStatusService.unauthorized, {errMessage: "Vous ne pouvez pas effectuer cette action"})
         }
     }
 

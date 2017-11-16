@@ -28,7 +28,7 @@ export default class entrepriseHandler {
                         })
                     }
                     else {
-                        reject({message: "Identifiant/mot de passe invalide"})
+                        reject({errMessage: "Identifiant/mot de passe invalide"})
                     }
                 })
                 .catch(err => reject(err));
@@ -69,7 +69,7 @@ export default class entrepriseHandler {
                         });
                     }
                     else {
-                        reject({message: "Une erreur c'est produite"});
+                        reject({errMessage: "Une erreur c'est produite"});
                     }
                 })
                 .catch(err => reject(err));
@@ -101,7 +101,7 @@ export default class entrepriseHandler {
                     });
                 }
                 else {
-                    reject({message: "Une erreur c'est produite"})
+                    reject({errMessage: "Une erreur c'est produite"})
                 }
             }).catch(err => reject(err));
         })
@@ -117,14 +117,18 @@ export default class entrepriseHandler {
     removeCampaign(entrepriseId, campaignId) {
         return new Promise((resolve, reject) => {
             this.EntrepriseModel.findOne({"_id": entrepriseId}).then(entreprise => {
-                let index = entreprise.campaign.indexOf(campaignId);
-                if (index !== -1) {
-                    entreprise.campaign.splice(index, 1);
-                    entreprise.save();
-                    resolve({success: true});
-                }
-                else {
-                    resolve({success: false});
+                if(!_.isNull(entreprise)) {
+                    let index = entreprise.campaign.indexOf(campaignId);
+                    if (index !== -1) {
+                        entreprise.campaign.splice(index, 1);
+                        entreprise.save();
+                        resolve({success: true});
+                    }
+                    else {
+                        resolve({success: false});
+                    }
+                } else {
+                    reject({errMessage: "Une erreur c'est produite"})
                 }
             }).catch(err => reject(err));
         })
@@ -133,14 +137,18 @@ export default class entrepriseHandler {
     addCampaign(entrepriseId, campaignId) {
         return new Promise((resolve, reject) => {
             this.EntrepriseModel.findOne({"_id": entrepriseId}).then(entreprise => {
-                let index = entreprise.campaign.indexOf(campaignId);
-                if (index === -1) {
-                    entreprise.campaign.push(campaignId);
-                    entreprise.save();
-                    resolve({success: true});
-                }
-                else {
-                    resolve({success: false});
+                if(!_.isNull(entreprise)) {
+                    let index = entreprise.campaign.indexOf(campaignId);
+                    if (index === -1) {
+                        entreprise.campaign.push(campaignId);
+                        entreprise.save();
+                        resolve({success: true});
+                    }
+                    else {
+                        resolve({success: false});
+                    }
+                } else {
+                    reject({errMessage: "Une erreur c'est produite"})
                 }
             }).catch(err => reject(err));
         })
