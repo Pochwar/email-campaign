@@ -100,18 +100,13 @@ export default class Server {
          /**
          * @api {post} /api/v1/entreprises Add entreprise
          * @apiGroup Entreprises
-         * @apiHeader Authorization Bearer + a valid access token
-         * @apiHeaderExample {json} Header-Example:
-         *     {
-         *       "Authorization": "Bearer YOUR_TOKEN"
-         *     }
          * @apiParam {String} name Name of entreprise
          * @apiParam {String} email Email of entreprise
          * @apiParam {String} password Password of entreprise
          * @apiParam {String} url_ad Url of redirect
          * @apiParam {String} url_picture Url of picture
          */
-        this._app.post('/api/v1/entreprises', accessGranted.restricted, entrepriseController.postEntreprise.bind(entrepriseController));
+        this._app.post('/api/v1/entreprises', accessGranted.public, entrepriseController.postEntreprise.bind(entrepriseController));
         /**
          * @api {put} /api/v1/entreprises/:entrepriseId Edit entreprise
          * @apiGroup Entreprises

@@ -5,7 +5,7 @@
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge" charset="utf-8">
     <title>Connexion</title>
-    <link rel="stylesheet" href="css/login.css" media="screen" type="text/css" />
+    <link rel="stylesheet" href="css/index.css" media="screen" type="text/css" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/css/materialize.min.css">
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 </head>
@@ -59,18 +59,16 @@
                 <div class="card grey lighten-4">
                     <div class="card-content">
                         <h5>Liste des campagnes</h5>
-                        <div id="campaigns">
-                            <form action="#">
-                                <p>
-                                    <input type="checkbox" id="campagne1" />
-                                    <label for="campagne1">Campagne 1</label>
-                                </p>
-                                <p>
-                                    <input type="checkbox" id="campagne2" checked="checked" />
-                                    <label for="campagne2">Campagne 1</label>
-                                </p>
-                            </form>
-                        </div>
+                        <form id="campaigns">
+                            <p>
+                                <input type="checkbox" id="campagne1" />
+                                <label for="campagne1">Campagne 1</label>
+                            </p>
+                            <p>
+                                <input type="checkbox" id="campagne2" checked="checked" />
+                                <label for="campagne2">Campagne 1</label>
+                            </p>
+                        </form>
                     </div>
                 </div>
             </div>
@@ -121,9 +119,4 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/js/materialize.min.js"></script>
 <script src="js/index.js"></script>
-<script type="text/javascript">
-    $(document).ready(function() {
-        Materialize.updateTextFields();
-    });
-</script>
 </html>
