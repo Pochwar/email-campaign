@@ -68,7 +68,7 @@ $(document).ready(function ()
                 dataType: 'json',
                 success: function(json, status)
                 {
-                    $('#display_name_enterprise').text(`Bienvenue ${json.label}`)
+                    $('.display_name_enterprise').text(`Bienvenue ${json.label}`)
                     var campaigns = json.campaigns;
                     $.ajax({
                         url: '/mock/campaigns',
