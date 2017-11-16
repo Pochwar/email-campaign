@@ -21,16 +21,8 @@ export default class Server {
 
         this._app.set('view engine', 'twig');
         this._app.set('views', path.join(__dirname, '../src/views/'));
-    }
 
-    setPort(port)
-    {
-        if (_.isEmpty(port))
-        {
-            port = 3000;
-        }
-
-        this.port = port;
+        this.port = process.env.PORT || 3000;
     }
 
 
