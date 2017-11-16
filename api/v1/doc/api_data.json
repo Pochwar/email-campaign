@@ -11,14 +11,23 @@
             "group": "Header",
             "optional": false,
             "field": "Authorization",
-            "description": "<p>Bearer + a valid access token</p>"
+            "description": "<p>a valid access token</p>"
           }
         ]
       },
       "examples": [
         {
           "title": "Header-Example:",
-          "content": "{\n  \"Authorization\": \"Bearer YOUR_TOKEN\"\n}",
+          "content": "{\n  \"Authorization\": \"YOUR_TOKEN\"\n}",
+          "type": "json"
+        }
+      ]
+    },
+    "success": {
+      "examples": [
+        {
+          "title": "Success-Response:",
+          "content": "HTTP/1.1 200 OK\n{\n    \"success\": true\n}",
           "type": "json"
         }
       ]
@@ -40,14 +49,14 @@
             "group": "Header",
             "optional": false,
             "field": "Authorization",
-            "description": "<p>Bearer + a valid access token</p>"
+            "description": "<p>a valid access token</p>"
           }
         ]
       },
       "examples": [
         {
           "title": "Header-Example:",
-          "content": "{\n  \"Authorization\": \"Bearer YOUR_TOKEN\"\n}",
+          "content": "{\n  \"Authorization\": \"YOUR_TOKEN\"\n}",
           "type": "json"
         }
       ]
@@ -56,7 +65,7 @@
       "examples": [
         {
           "title": "Success-Response:",
-          "content": "HTTP/1.1 200 OK\n[\n  {\n      \"id\": \"5a0c42394b2d38635f474b4b\",\n      \"name\": \"IMIE\",\n      \"url_ad\": \"http://perdu.com/img.jpg\",\n      \"url_picture\": \"http://perdu.com/img.jpg\",\n      \"campaigns\": [456789,123456]\n  },\n  {\n      \"id\": \"5a0c42394b2d38635f474b4c\",\n      \"name\": \"Intel\",\n      \"url_ad\": \"http://perdu.com/img.jpg\",\n      \"url_picture\": \"http://perdu.com/img.jpg\",\n      \"campaigns\": [456789,123456]\n  }\n]",
+          "content": "HTTP/1.1 200 OK\n[\n  {\n      \"id\": \"5a0c42394b2d38635f474b4b\",\n      \"label\": \"IMIE\",\n      \"url_ad\": \"http://perdu.com/img.jpg\",\n      \"url_picture\": \"http://perdu.com/img.jpg\",\n      \"campaigns\": [456789,123456]\n  },\n  {\n      \"id\": \"5a0c42394b2d38635f474b4c\",\n      \"label\": \"Intel\",\n      \"url_ad\": \"http://perdu.com/img.jpg\",\n      \"url_picture\": \"http://perdu.com/img.jpg\",\n      \"campaigns\": [456789,123456]\n  }\n]",
           "type": "json"
         }
       ]
@@ -78,14 +87,14 @@
             "group": "Header",
             "optional": false,
             "field": "Authorization",
-            "description": "<p>Bearer + a valid access token</p>"
+            "description": "<p>a valid access token</p>"
           }
         ]
       },
       "examples": [
         {
           "title": "Header-Example:",
-          "content": "{\n  \"Authorization\": \"Bearer YOUR_TOKEN\"\n}",
+          "content": "{\n  \"Authorization\": \"YOUR_TOKEN\"\n}",
           "type": "json"
         }
       ]
@@ -94,7 +103,7 @@
       "examples": [
         {
           "title": "Success-Response:",
-          "content": "HTTP/1.1 200 OK\n{\n    \"id\": \"5a0c42394b2d38635f474b4b\",\n    \"name\": \"IMIE\",\n    \"url_ad\": \"http://perdu.com/img.jpg\",\n    \"url_picture\": \"http://perdu.com/img.jpg\",\n    \"campaigns\": [456789,123456]\n}",
+          "content": "HTTP/1.1 200 OK\n{\n    \"id\": \"5a0c42394b2d38635f474b4b\",\n    \"label\": \"IMIE\",\n    \"url_ad\": \"http://perdu.com/img.jpg\",\n    \"url_picture\": \"http://perdu.com/img.jpg\",\n    \"campaigns\": [456789,123456]\n}",
           "type": "json"
         }
       ]
@@ -109,25 +118,6 @@
     "url": "/api/v1/entreprises",
     "title": "Add entreprise",
     "group": "Entreprises",
-    "header": {
-      "fields": {
-        "Header": [
-          {
-            "group": "Header",
-            "optional": false,
-            "field": "Authorization",
-            "description": "<p>Bearer + a valid access token</p>"
-          }
-        ]
-      },
-      "examples": [
-        {
-          "title": "Header-Example:",
-          "content": "{\n  \"Authorization\": \"Bearer YOUR_TOKEN\"\n}",
-          "type": "json"
-        }
-      ]
-    },
     "parameter": {
       "fields": {
         "Parameter": [
@@ -135,7 +125,7 @@
             "group": "Parameter",
             "type": "String",
             "optional": false,
-            "field": "name",
+            "field": "label",
             "description": "<p>Name of entreprise</p>"
           },
           {
@@ -169,10 +159,58 @@
         ]
       }
     },
+    "success": {
+      "examples": [
+        {
+          "title": "Success-Response:",
+          "content": "HTTP/1.1 200 OK\n{\n    \"create\": \"ok\"\n}",
+          "type": "json"
+        }
+      ]
+    },
     "version": "0.0.0",
     "filename": "src/server.js",
     "groupTitle": "Entreprises",
     "name": "PostApiV1Entreprises"
+  },
+  {
+    "type": "post",
+    "url": "/api/v1/login",
+    "title": "Login",
+    "group": "Entreprises",
+    "parameter": {
+      "fields": {
+        "Parameter": [
+          {
+            "group": "Parameter",
+            "type": "String",
+            "optional": false,
+            "field": "email",
+            "description": "<p>Email of entreprise</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "String",
+            "optional": false,
+            "field": "password",
+            "description": "<p>Password of entreprise</p>"
+          }
+        ]
+      }
+    },
+    "success": {
+      "examples": [
+        {
+          "title": "Success-Response:",
+          "content": "HTTP/1.1 200 OK\n{\n    \"id\": \"monid\"\n    \"token\": \"unsupertokenavecdes123etdeslettres\"\n}",
+          "type": "json"
+        }
+      ]
+    },
+    "version": "0.0.0",
+    "filename": "src/server.js",
+    "groupTitle": "Entreprises",
+    "name": "PostApiV1Login"
   },
   {
     "type": "put",
@@ -186,14 +224,14 @@
             "group": "Header",
             "optional": false,
             "field": "Authorization",
-            "description": "<p>Bearer + a valid access token</p>"
+            "description": "<p>a valid access token</p>"
           }
         ]
       },
       "examples": [
         {
           "title": "Header-Example:",
-          "content": "{\n  \"Authorization\": \"Bearer YOUR_TOKEN\"\n}",
+          "content": "{\n  \"Authorization\": \"YOUR_TOKEN\"\n}",
           "type": "json"
         }
       ]
@@ -205,7 +243,7 @@
             "group": "Parameter",
             "type": "String",
             "optional": false,
-            "field": "name",
+            "field": "label",
             "description": "<p>Name of entreprise</p>"
           },
           {
@@ -238,6 +276,15 @@
           }
         ]
       }
+    },
+    "success": {
+      "examples": [
+        {
+          "title": "Success-Response:",
+          "content": "HTTP/1.1 200 OK\n{\n    \"modified\": \"6\"\n}",
+          "type": "json"
+        }
+      ]
     },
     "version": "0.0.0",
     "filename": "src/server.js",
@@ -256,14 +303,23 @@
             "group": "Header",
             "optional": false,
             "field": "Authorization",
-            "description": "<p>Bearer + a valid access token</p>"
+            "description": "<p>a valid access token</p>"
           }
         ]
       },
       "examples": [
         {
           "title": "Header-Example:",
-          "content": "{\n  \"Authorization\": \"Bearer YOUR_TOKEN\"\n}",
+          "content": "{\n  \"Authorization\": \"YOUR_TOKEN\"\n}",
+          "type": "json"
+        }
+      ]
+    },
+    "success": {
+      "examples": [
+        {
+          "title": "Success-Response:",
+          "content": "HTTP/1.1 200 OK\n{\n    \"success\": true\n}",
           "type": "json"
         }
       ]
@@ -285,14 +341,23 @@
             "group": "Header",
             "optional": false,
             "field": "Authorization",
-            "description": "<p>Bearer + a valid access token</p>"
+            "description": "<p>a valid access token</p>"
           }
         ]
       },
       "examples": [
         {
           "title": "Header-Example:",
-          "content": "{\n  \"Authorization\": \"Bearer YOUR_TOKEN\"\n}",
+          "content": "{\n  \"Authorization\": \"YOUR_TOKEN\"\n}",
+          "type": "json"
+        }
+      ]
+    },
+    "success": {
+      "examples": [
+        {
+          "title": "Success-Response:",
+          "content": "HTTP/1.1 200 OK\n{\n    \"success\": true\n}",
           "type": "json"
         }
       ]
