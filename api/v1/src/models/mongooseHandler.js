@@ -1,4 +1,4 @@
-const yaml_config = require('node-yaml-config');
+require('dotenv').config();
 import Mongoose from "mongoose";
 
 export default class mongooseHandler
@@ -6,9 +6,14 @@ export default class mongooseHandler
     constructor()
     {
         this.mongoose = Mongoose;
-        this.config = yaml_config.load('config/config.yml');
 
-        this.mongoose.connect(`mongodb://${ this.config.dbConfig.host }:${ this.config.dbConfig.port }/${ this.config.dbConfig.dbName }`, err =>
+        let dbConnect;
+        if(process.env.ENV == 'prod') {
+            dbConnect = `mongodb://${ process.env.DB_USER }:${ process.env.DB_PASSWORD }@${ process.env.DB_HOST }:${ process.env.DB_PORT }/${ process.env.DB_NAME }`
+        } else {
+            dbConnect = `mongodb://${ process.env.DB_HOST }:${ process.env.DB_PORT }/${ process.env.DB_NAME }`
+        }
+        this.mongoose.connect(dbConnect, err =>
         {
             if(err)
                 console.log(err);
