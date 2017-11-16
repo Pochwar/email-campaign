@@ -11,12 +11,12 @@ $(document).ready(function ()
     }
     else
     {
-        $(".button-collapse").sideNav();
         listCampaigns();
         handleDisconnect();
         handleUnsubscribe(token);
     }
-
+    
+    $(".button-collapse").sideNav();
     handleLogin();
     handleRegister();
     
