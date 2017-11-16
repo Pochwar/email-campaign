@@ -113,12 +113,12 @@ export default class EntrepriseController
 
     setArrayFromBody(body) {
         let array = {};
-        array.label = (!_.isNull(body.label)) ? body.label : null;
-        array.email = (!_.isNull(body.email)) ? body.email : null;
-        array.password = (!_.isNull(body.password)) ? body.password : null;
-        array.url_ad = (!_.isNull(body.url_ad)) ? body.url_ad : null;
-        array.url_picture = (!_.isNull(body.url_picture)) ? body.url_picture : null;
-        array.campaign = (!_.isNull(body.campaign)) ? body.campaign : null;
+        array.label = (!_.isNull(body.label) && typeof body.label !== "undefined") ? body.label : null;
+        array.email = (!_.isNull(body.email) && typeof body.email !== "undefined") ? body.email : null;
+        array.password = (!_.isNull(body.password) && typeof body.password !== "undefined") ? body.password : null;
+        array.url_ad = (!_.isNull(body.url_ad) && typeof body.url_ad !== "undefined") ? body.url_ad : null;
+        array.url_picture = (!_.isNull(body.url_picture) && typeof body.url_picture !== "undefined") ? body.url_picture : null;
+        array.campaign = (!_.isNull(body.campaign) && typeof body.campaign !== "undefined") ? body.campaign : null;
         return array
     }
 }

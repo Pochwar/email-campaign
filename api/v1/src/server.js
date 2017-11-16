@@ -151,7 +151,7 @@ export default class Server {
          *       "Authorization": "Bearer YOUR_TOKEN"
          *     }
          */
-        this._app.put('/api/v1/entreprise/:entrepriseId/:campaignId/remove', accessGranted.restricted, entrepriseController.removeCampaign.bind(entrepriseController));
+        this._app.put('/api/v1/entreprises/:entrepriseId/:campaignId/remove', accessGranted.restricted, entrepriseController.removeCampaign.bind(entrepriseController));
     }
 
     run()
