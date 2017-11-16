@@ -15,6 +15,10 @@
     <div id="error_msg"></div>
 </div>
 
+<div id="success">
+    <div id="success_msg"></div>
+</div>
+
 <section id="login" class="login-card">
     <div class="container">
         <div class="row">
@@ -24,13 +28,13 @@
                     <form>
                         <div class="row">
                             <div class="input-field col s12">
-                                <input id="email" type="email" class="validate">
+                                <input id="email" type="email" class="validate" required>
                                 <label for="email">E-mail</label>
                             </div>
                         </div>
                         <div class="row">
                             <div class="input-field col s12">
-                                <input id="password" type="password" class="validate">
+                                <input id="password" type="password" class="validate" required>
                                 <label for="password">Mot de passe</label>
                             </div>
                         </div>
@@ -94,6 +98,24 @@
                 </div>
             </div>
         </div>
+        <hr>
+        <h4 class="center-align">Vos informations</h4>
+        <div class="row">
+            <div class="col s6 offset-s3">
+                <div class="card grey lighten-4 black-text">
+                    <div class="card-content">
+                        <div>
+                            <p class="p_label">Url de votre publicité</p>
+                            <p id="ad_url"></p>
+                        </div>
+                        <div>
+                            <p class="p_label">Image de votre publicité</p>
+                            <p id="img_url"></p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
 </section>
 
@@ -106,27 +128,27 @@
                     <p class="alert-error hidden"></p>
                     <form>
                         <div class="input-field col s12">
-                            <input id="label" type="text" class="validate">
+                            <input id="label" type="text" class="validate" required>
                             <label for="label">Nom de l'entreprise</label>
                         </div>
                         <div class="input-field col s12">
-                            <input id="emailRegister" type="email" class="validate">
+                            <input id="emailRegister" type="email" class="validate" required>
                             <label for="emailRegister">Email</label>
                         </div>
                         <div class="input-field col s12">
-                            <input id="passwordRegister" type="password" class="validate">
+                            <input id="passwordRegister" type="password" class="validate" required>
                             <label for="passwordRegister">Mot de passe</label>
                         </div>
                         <div class="input-field col s12">
-                            <input id="passwordConfirmRegister" type="password" class="validate">
+                            <input id="passwordConfirmRegister" type="password" class="validate" required>
                             <label for="passwordConfirmRegister">Confirmez votre mot de passe</label>
                         </div>
                         <div class="input-field col s12">
-                            <input id="url-ad" type="text" class="validate">
+                            <input id="url-ad" type="text" class="validate" required>
                             <label for="url-ad">URL du site de l'entreprise</label>
                         </div>
                         <div class="input-field col s12">
-                            <input id="url-picture" type="text" class="validate">
+                            <input id="url-picture" type="text" class="validate" required>
                             <label for="url-picture">URL de l'image</label>
                         </div>
                         <button id="submit-register" class="col s12 btn waves-effect waves-light" type="submit" name="action">Inscription</button>
