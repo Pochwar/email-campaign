@@ -2,7 +2,7 @@ define({ "api": [
   {
     "type": "delete",
     "url": "/api/v1/entreprises/:entrepriseId",
-    "title": "Delete entreprise",
+    "title": "Delete one entreprise",
     "group": "Entreprises",
     "header": {
       "fields": {
@@ -22,6 +22,19 @@ define({ "api": [
           "type": "json"
         }
       ]
+    },
+    "parameter": {
+      "fields": {
+        "Parameter": [
+          {
+            "group": "Parameter",
+            "type": "String",
+            "optional": false,
+            "field": ":id",
+            "description": "<p>Entreprise's id</p>"
+          }
+        ]
+      }
     },
     "success": {
       "examples": [
@@ -78,7 +91,7 @@ define({ "api": [
   {
     "type": "get",
     "url": "/api/v1/entreprises/:entrepriseId",
-    "title": "Get entreprise",
+    "title": "Get one entreprise",
     "group": "Entreprises",
     "header": {
       "fields": {
@@ -99,6 +112,19 @@ define({ "api": [
         }
       ]
     },
+    "parameter": {
+      "fields": {
+        "Parameter": [
+          {
+            "group": "Parameter",
+            "type": "String",
+            "optional": false,
+            "field": ":id",
+            "description": "<p>Entreprise's id</p>"
+          }
+        ]
+      }
+    },
     "success": {
       "examples": [
         {
@@ -116,7 +142,7 @@ define({ "api": [
   {
     "type": "post",
     "url": "/api/v1/entreprises",
-    "title": "Add entreprise",
+    "title": "Create one entreprise",
     "group": "Entreprises",
     "parameter": {
       "fields": {
@@ -215,7 +241,7 @@ define({ "api": [
   {
     "type": "put",
     "url": "/api/v1/entreprises/:entrepriseId",
-    "title": "Edit entreprise",
+    "title": "Edit one entreprise",
     "group": "Entreprises",
     "header": {
       "fields": {
@@ -239,6 +265,13 @@ define({ "api": [
     "parameter": {
       "fields": {
         "Parameter": [
+          {
+            "group": "Parameter",
+            "type": "String",
+            "optional": false,
+            "field": ":id",
+            "description": "<p>Entreprise's id</p>"
+          },
           {
             "group": "Parameter",
             "type": "String",
@@ -315,6 +348,26 @@ define({ "api": [
         }
       ]
     },
+    "parameter": {
+      "fields": {
+        "Parameter": [
+          {
+            "group": "Parameter",
+            "type": "String",
+            "optional": false,
+            "field": ":entrepriseId",
+            "description": "<p>Entreprise's id</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "String",
+            "optional": false,
+            "field": ":campaignId",
+            "description": "<p>Campaign's id</p>"
+          }
+        ]
+      }
+    },
     "success": {
       "examples": [
         {
@@ -352,6 +405,26 @@ define({ "api": [
           "type": "json"
         }
       ]
+    },
+    "parameter": {
+      "fields": {
+        "Parameter": [
+          {
+            "group": "Parameter",
+            "type": "String",
+            "optional": false,
+            "field": ":entrepriseId",
+            "description": "<p>Entreprise's id</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "String",
+            "optional": false,
+            "field": ":campaignId",
+            "description": "<p>Campaign's id</p>"
+          }
+        ]
+      }
     },
     "success": {
       "examples": [

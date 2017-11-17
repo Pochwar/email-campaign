@@ -83,9 +83,10 @@ export default class Server {
          */
         this._app.get('/api/v1/entreprises', accessGranted.restricted, entrepriseController.getEntreprises.bind(entrepriseController));
          /**
-         * @api {get} /api/v1/entreprises/:entrepriseId Get entreprise
+         * @api {get} /api/v1/entreprises/:entrepriseId Get one entreprise
          * @apiGroup Entreprises
          * @apiHeader Authorization a valid access token
+         * @apiParam {String} :id Entreprise's id
          * @apiHeaderExample {json} Header-Example:
          *     {
          *       "Authorization": "YOUR_TOKEN"
@@ -102,7 +103,7 @@ export default class Server {
          */
         this._app.get('/api/v1/entreprises/:id', accessGranted.restricted, entrepriseController.getEntrepriseById.bind(entrepriseController));
          /**
-         * @api {post} /api/v1/entreprises Add entreprise
+         * @api {post} /api/v1/entreprises Create one entreprise
          * @apiGroup Entreprises
          * @apiParam {String} label Name of entreprise
          * @apiParam {String} email Email of entreprise
@@ -117,13 +118,14 @@ export default class Server {
          */
         this._app.post('/api/v1/entreprises', accessGranted.public, entrepriseController.postEntreprise.bind(entrepriseController));
          /**
-         * @api {put} /api/v1/entreprises/:entrepriseId Edit entreprise
+         * @api {put} /api/v1/entreprises/:entrepriseId Edit one entreprise
          * @apiGroup Entreprises
          * @apiHeader Authorization a valid access token
          * @apiHeaderExample {json} Header-Example:
          *     {
          *       "Authorization": "YOUR_TOKEN"
          *     }
+         * @apiParam {String} :id Entreprise's id
          * @apiParam {String} label Name of entreprise
          * @apiParam {String} email Email of entreprise
          * @apiParam {String} password Password of entreprise
@@ -137,9 +139,10 @@ export default class Server {
          */
         this._app.put('/api/v1/entreprises/:id', accessGranted.restricted, entrepriseController.putEntreprises.bind(entrepriseController));
          /**
-         * @api {delete} /api/v1/entreprises/:entrepriseId Delete entreprise
+         * @api {delete} /api/v1/entreprises/:entrepriseId Delete one entreprise
          * @apiGroup Entreprises
          * @apiHeader Authorization a valid access token
+         * @apiParam {String} :id Entreprise's id
          * @apiHeaderExample {json} Header-Example:
          *     {
          *       "Authorization": "YOUR_TOKEN"
@@ -155,6 +158,8 @@ export default class Server {
          * @api {put} /api/v1/entreprises/:entrepriseId/:campaignId/add Add a campaign for a company
          * @apiGroup Entreprises
          * @apiHeader Authorization a valid access token
+         * @apiParam {String} :entrepriseId Entreprise's id
+         * @apiParam {String} :campaignId Campaign's id
          * @apiHeaderExample {json} Header-Example:
          *     {
          *       "Authorization": "YOUR_TOKEN"
@@ -170,6 +175,8 @@ export default class Server {
          * @api {put} /api/v1/entreprises/:entrepriseId/:campaignId/remove Remove a campaign for a company
          * @apiGroup Entreprises
          * @apiHeader Authorization a valid access token
+         * @apiParam {String} :entrepriseId Entreprise's id
+         * @apiParam {String} :campaignId Campaign's id
          * @apiHeaderExample {json} Header-Example:
          *     {
          *       "Authorization": "YOUR_TOKEN"
