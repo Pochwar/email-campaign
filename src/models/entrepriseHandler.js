@@ -16,7 +16,7 @@ export default class entrepriseHandler {
                     if (!_.isNull(entreprise)) {
                         bcrypt.compare(array.password, entreprise.password, (err, res) => {
                             if (res) {
-                                const token = jwt.sign({_id: entreprise._id}, process.env.API_TOKEN_SECRET, {expiresIn: 60 * 60});
+                                const token = jwt.sign({_id: entreprise._id}, process.env.API_TOKEN_SECRET, {expiresIn: parseInt(process.env.API_TOKEN_VALIDITY)});
                                 resolve({
                                     id: entreprise.id,
                                     token: token
