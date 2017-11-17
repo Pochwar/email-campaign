@@ -144,8 +144,8 @@ $(document).ready(function ()
                                 });
                             });
                         },
-                        error: function (result, status, error) {
-                            console.dir(error);
+                        error: function (error) {
+                             displayError(error.message)
                         }
                     });
                 }
