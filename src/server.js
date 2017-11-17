@@ -1,10 +1,9 @@
 import path from 'path';
-import _ from 'underscore';
 import express from 'express';
 import bodyParser from 'body-parser';
 import EntrepriseController from './controller/entrepriseController';
-import MockingService from './services/mockingService';
 import AccessGranted from './middleware/accessGranted';
+import MockingService from './services/mockingService';
 
 
 export default class Server {
@@ -30,8 +29,8 @@ export default class Server {
     _initControllers()
     {
         const entrepriseController = new EntrepriseController();
-        const mockingService = new MockingService();
         const accessGranted = new AccessGranted();
+        const mockingService = new MockingService();
 
         this._app.get('/', accessGranted.public, entrepriseController.index.bind(entrepriseController));
 
@@ -39,8 +38,9 @@ export default class Server {
 
         this._app.get('/register', entrepriseController.register.bind(entrepriseController));
 
-        /** Route temporaire **/
-        this._app.get('/mock/campaigns', accessGranted.public, mockingService.generateCampaigns.bind(mockingService));
+        this._app.get('/mocking/campaigns', accessGranted.public, mockingService.generateCampaigns.bind(mockingService));
+
+        this._app.get('/getCampaigns', accessGranted.restricted, entrepriseController.getCampaigns.bind(entrepriseController));
          /**
          * @api {post} /api/v1/login Login
          * @apiGroup Entreprises

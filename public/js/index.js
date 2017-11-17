@@ -72,7 +72,6 @@ $(document).ready(function ()
                 dataType: 'json',
                 success: function(json, status)
                 {
-                    console.dir(json)
                     $('.display_name_enterprise').text(`Bienvenue ${json.label}`);
                     $('#ad_url').text(json.url_ad);
                     var img = `<img src="${json.url_picture}" width="150px">`
@@ -81,14 +80,15 @@ $(document).ready(function ()
 
                     var campaigns = json.campaigns;
                     $.ajax({
-                        url: '/mock/campaigns',
+                        url: '/getCampaigns',
                         type: 'GET',
+                        headers: {"Authorization": token},
                         dataType: 'json',
                         success: function (json, status) {
                             let str = `<p> `;
                             for(var j = 0; j < json.data.length; j++)
                             {
-                                str += `<input type="checkbox" class="checkCampaign"`
+                                str += `<input type="checkbox" class="checkCampaign"`;
                                 for (var id in campaigns) {
                                     if (campaigns[id] == json.data[j].id)
                                         str += ` checked="checked" `
