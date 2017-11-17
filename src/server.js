@@ -168,7 +168,7 @@ export default class Server {
          *         "success": true
          *     }
          * @apiParam {String} :entrepriseId Entreprise's id
-         * @apiParam {String} :campaignId Campaign's id
+         * @apiParam {Integer} :campaignId Campaign's id
          */
         this._app.put('/api/v1/entreprises/:entrepriseId/:campaignId/add', accessGranted.restricted, entrepriseController.addCampaign.bind(entrepriseController));
          /**
@@ -185,7 +185,7 @@ export default class Server {
          *         "success": true
          *     }
          * @apiParam {String} :entrepriseId Entreprise's id
-         * @apiParam {String} :campaignId Campaign's id
+         * @apiParam {Integer} :campaignId Campaign's id
          */
         this._app.put('/api/v1/entreprises/:entrepriseId/:campaignId/remove', accessGranted.restricted, entrepriseController.removeCampaign.bind(entrepriseController));
     }
