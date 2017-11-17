@@ -1,0 +1,5 @@
+default:
+    dbConfig:
+        host: "mongo"
+        port: "27017"
+        dbName: "dbName"
