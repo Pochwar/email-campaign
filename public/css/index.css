@@ -22,7 +22,7 @@ body {
 }
 
 #error_msg {
-    width: 150px;
+    width: 250px;
     display: block;
     margin: auto;
     background-color: #f5f5f5;
@@ -35,7 +35,7 @@ body {
 }
 
 #success_msg {
-    width: 150px;
+    width: 250px;
     display: block;
     margin: auto;
     background-color: #f5f5f5;
