@@ -283,7 +283,7 @@ define({ "api": [
           },
           {
             "group": "Parameter",
-            "type": "String",
+            "type": "Integer",
             "optional": false,
             "field": ":campaignId",
             "description": "<p>Campaign's id</p>"
@@ -341,7 +341,7 @@ define({ "api": [
           },
           {
             "group": "Parameter",
-            "type": "String",
+            "type": "Integer",
             "optional": false,
             "field": ":campaignId",
             "description": "<p>Campaign's id</p>"
