@@ -85,6 +85,7 @@ export default class Server {
          /**
          * @api {get} /api/v1/entreprises/:entrepriseId Get one entreprise
          * @apiGroup Entreprises
+         * @apiParam {String} id Id of entreprise
          * @apiHeader Authorization a valid access token
          * @apiParam {String} :id Entreprise's id
          * @apiHeaderExample {json} Header-Example:
@@ -120,6 +121,7 @@ export default class Server {
          /**
          * @api {put} /api/v1/entreprises/:entrepriseId Edit one entreprise
          * @apiGroup Entreprises
+         * @apiParam {String} id Id of entreprise
          * @apiHeader Authorization a valid access token
          * @apiHeaderExample {json} Header-Example:
          *     {
@@ -141,6 +143,7 @@ export default class Server {
          /**
          * @api {delete} /api/v1/entreprises/:entrepriseId Delete one entreprise
          * @apiGroup Entreprises
+         * @apiParam {String} id Id of entreprise
          * @apiHeader Authorization a valid access token
          * @apiParam {String} :id Entreprise's id
          * @apiHeaderExample {json} Header-Example:
@@ -157,6 +160,8 @@ export default class Server {
          /**
          * @api {put} /api/v1/entreprises/:entrepriseId/:campaignId/add Add a campaign for a company
          * @apiGroup Entreprises
+         * @apiParam {String} entrepriseId Id of entreprise
+         * @apiParam {Number} campaignId Id of campaign
          * @apiHeader Authorization a valid access token
          * @apiParam {String} :entrepriseId Entreprise's id
          * @apiParam {String} :campaignId Campaign's id
@@ -174,6 +179,8 @@ export default class Server {
          /**
          * @api {put} /api/v1/entreprises/:entrepriseId/:campaignId/remove Remove a campaign for a company
          * @apiGroup Entreprises
+         * @apiParam {String} entrepriseId Id of entreprise
+         * @apiParam {Number} campaignId Id of campaign
          * @apiHeader Authorization a valid access token
          * @apiParam {String} :entrepriseId Entreprise's id
          * @apiParam {String} :campaignId Campaign's id
