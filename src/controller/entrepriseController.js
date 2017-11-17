@@ -2,6 +2,9 @@ import EntrepriseHandler from "../models/entrepriseHandler";
 import _ from "underscore";
 import HttpStatusService from "../services/httpStatusService";
 import AuthenticityService from "../services/authenticityService";
+let request = require('request');
+
+
 
 export default class EntrepriseController {
 
@@ -132,6 +135,12 @@ export default class EntrepriseController {
         else {
             that.sendJsonResponse(res, that.httpStatusService.unauthorized, {errMessage: "Vous ne pouvez pas effectuer cette action"})
         }
+    }
+
+    getCampaigns(req, res) {
+        request({
+            uri: process.env.API_GET_CAMPAIGNS || "http://localhost:3000/mocking/campaigns",
+        }).pipe(res);
     }
 
     sendJsonResponse(res, code, content) {
