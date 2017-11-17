@@ -33,6 +33,7 @@ body {
     left: -50%;
     border-radius: 2px;
     box-shadow: 4px 4px 4px rgba(0, 0, 0, .5);
+    z-index: 9999;
 }
 
 #success_msg {
@@ -47,6 +48,7 @@ body {
     left: -50%;
     border-radius: 2px;
     box-shadow: 4px 4px 4px rgba(0, 0, 0, .5);
+    z-index: 9999;
 }
 
 .login-card .card {

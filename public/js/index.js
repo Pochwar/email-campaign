@@ -309,7 +309,7 @@ $(document).ready(function ()
         clearTimeout(myTimeout);
         $("#success_msg").text(msg);
         myTimeout = setTimeout(function(){
-            $("#success_msg").text("")
+            $("#success_msg").text("");
         }, 3000);
     }
 
