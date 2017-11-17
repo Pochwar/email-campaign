@@ -21,7 +21,7 @@ A school project to learn restful API's
 - View App at `http://localhost:3000`
 
 ### Method 2 - Node & Docker
-- Run `docker-compose -f dc-mongo.yml up` to launch mongo container
+- Run `docker-compose -f dc-dev.yml up` to launch mongo container
 - In `.env`, set `DB_HOST` to `0.0.0.0`
 - Run `npm install` to install packages
 - Run `npm run build` to build App

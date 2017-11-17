@@ -32,6 +32,7 @@ body {
     position: relative;
     left: -50%;
     border-radius: 2px;
+    box-shadow: 4px 4px 4px rgba(0, 0, 0, .5);
 }
 
 #success_msg {
@@ -45,6 +46,7 @@ body {
     position: relative;
     left: -50%;
     border-radius: 2px;
+    box-shadow: 4px 4px 4px rgba(0, 0, 0, .5);
 }
 
 .login-card .card {

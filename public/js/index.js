@@ -148,6 +148,9 @@ $(document).ready(function ()
                              displayError(error.message)
                         }
                     });
+                },
+                error: function (error) {
+                    reset();
                 }
             });
             $('#register-card').hide();
@@ -260,17 +263,12 @@ $(document).ready(function ()
     function handleDisconnect() {
         $(".but_disconnect").unbind('click').bind('click', function (e) {
             e.preventDefault();
-            document.title = 'Connexion';
-            localStorage.removeItem('api_token');
-            $("#login").show();
-            $('#register-card').hide();
-            $("#entreprise").hide();
+            reset();
         });
     }
 
     function handleUnsubscribe(token) {
         $(".but_unsubscribe").unbind('click').bind('click', function (e) {
-            document.title = 'Connexion';
             e.preventDefault();
             var c = confirm("Êtes vous sûr de vouloir vous désinscrire ?");
             if (c) {
@@ -282,12 +280,9 @@ $(document).ready(function ()
                     success: function (data)
                     {
                         if(data.errMessage) {
-                            displayError(data.errMessage)
+                            displayError(data.errMessage);
                         } else {
-                            localStorage.removeItem('api_token');
-                            $("#login").show();
-                            $('#register-card').hide();
-                            $("#entreprise").hide();
+                            reset();
                         }
                     },
                     error: function (error)
@@ -316,6 +311,15 @@ $(document).ready(function ()
         myTimeout = setTimeout(function(){
             $("#success_msg").text("")
         }, 3000);
+    }
+
+    function reset() {
+        document.title = 'Connexion';
+        localStorage.removeItem('api_token');
+        localStorage.removeItem('entreprise_id');
+        $("#login").show();
+        $('#register-card').hide();
+        $("#entreprise").hide();
     }
 
 });
