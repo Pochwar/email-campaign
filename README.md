@@ -4,7 +4,6 @@ A school project to learn restful API's
 
 ## Requirements
 
-
 - NodeJs
 - NPM
 - Docker
@@ -13,18 +12,21 @@ A school project to learn restful API's
 ## Installation
 
 - Clone repository : `git clone https://github.com/Pochwar/email-campaign.git`
-- Copy `api/v1/.env.exemple` to `api/v1/.env` and define database credentials and Api Token Secret. With docker, database host is `mongo`
-- Install packages : go to `api/v1` and run `npm install`
+- Copy `.env.exemple` to `.env`
 
-### Developement
-- Run `docker-compose -f dc-dev.yml up` to launch mongo container
-- In `api/v1/config/config.yml`, set `dbConfig.host` to `0.0.0.0`
-- Go to `api/v1` folder and run `npm run dev` 
-- Visit `http://localhost:3000`, app reloads on every source file change
 
-### Production
-- In `api/v1/config/config.yml`, set `dbConfig.host` to `mongo
-- Run `docker-compose up` to launch containers and then go to `localhost:3000`
+### Method 1 - Full Docker
+- In `.env`, set `DB_HOST` to `mongo` and `PORT` to `3000`
+- Run `docker-compose up`
+- View App at `http://localhost:3000`
+
+### Method 2 - Node & Docker
+- Run `docker-compose -f dc-mongo.yml up` to launch mongo container
+- In `.env`, set `DB_HOST` to `0.0.0.0`
+- Run `npm install` to install packages
+- Run `npm run build` to build App
+- Run `npm run launch` to launch App OR run `npm run dev` to launch App with hot reload
+- View App at `http://localhost:3000`
 
 ## Documentation
 

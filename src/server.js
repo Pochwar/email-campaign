@@ -1,10 +1,9 @@
 import path from 'path';
-import _ from 'underscore';
 import express from 'express';
 import bodyParser from 'body-parser';
 import EntrepriseController from './controller/entrepriseController';
-import MockingService from './services/mockingService';
 import AccessGranted from './middleware/accessGranted';
+import MockingService from './services/mockingService';
 
 
 export default class Server {
@@ -30,8 +29,8 @@ export default class Server {
     _initControllers()
     {
         const entrepriseController = new EntrepriseController();
-        const mockingService = new MockingService();
         const accessGranted = new AccessGranted();
+        const mockingService = new MockingService();
 
         this._app.get('/', accessGranted.public, entrepriseController.index.bind(entrepriseController));
 
@@ -39,10 +38,11 @@ export default class Server {
 
         this._app.get('/register', entrepriseController.register.bind(entrepriseController));
 
-        /** Route temporaire **/
-        this._app.get('/mock/campaigns', accessGranted.public, mockingService.generateCampaigns.bind(mockingService));
+        this._app.get('/mocking/campaigns', accessGranted.public, mockingService.generateCampaigns.bind(mockingService));
+
+        this._app.get('/getCampaigns', accessGranted.restricted, entrepriseController.getCampaigns.bind(entrepriseController));
          /**
-         * @api {post} /api/v1/login Login
+         * @api {post} /api/v1/login #1 Login
          * @apiGroup Entreprises
          * @apiParam {String} email Email of entreprise
          * @apiParam {String} password Password of entreprise
@@ -55,7 +55,7 @@ export default class Server {
          */
         this._app.post('/api/v1/login', accessGranted.public, entrepriseController.login.bind(entrepriseController));
          /**
-         * @api {get} /api/v1/entreprises Get all entreprises
+         * @api {get} /api/v1/entreprises #2 Get all entreprises
          * @apiGroup Entreprises
          * @apiHeader Authorization a valid access token
          * @apiHeaderExample {json} Header-Example:
@@ -83,7 +83,7 @@ export default class Server {
          */
         this._app.get('/api/v1/entreprises', accessGranted.restricted, entrepriseController.getEntreprises.bind(entrepriseController));
          /**
-         * @api {get} /api/v1/entreprises/:entrepriseId Get entreprise
+         * @api {get} /api/v1/entreprises/:id #3 Get one entreprise
          * @apiGroup Entreprises
          * @apiHeader Authorization a valid access token
          * @apiHeaderExample {json} Header-Example:
@@ -99,10 +99,11 @@ export default class Server {
          *         "url_picture": "http://perdu.com/img.jpg",
          *         "campaigns": [456789,123456]
          *     }
+         * @apiParam {String} :id Entreprise's id
          */
         this._app.get('/api/v1/entreprises/:id', accessGranted.restricted, entrepriseController.getEntrepriseById.bind(entrepriseController));
          /**
-         * @api {post} /api/v1/entreprises Add entreprise
+         * @api {post} /api/v1/entreprises #4 Create one entreprise
          * @apiGroup Entreprises
          * @apiParam {String} label Name of entreprise
          * @apiParam {String} email Email of entreprise
@@ -117,13 +118,14 @@ export default class Server {
          */
         this._app.post('/api/v1/entreprises', accessGranted.public, entrepriseController.postEntreprise.bind(entrepriseController));
          /**
-         * @api {put} /api/v1/entreprises/:entrepriseId Edit entreprise
+         * @api {put} /api/v1/entreprises/:id #5 Edit one entreprise
          * @apiGroup Entreprises
          * @apiHeader Authorization a valid access token
          * @apiHeaderExample {json} Header-Example:
          *     {
          *       "Authorization": "YOUR_TOKEN"
          *     }
+         * @apiParam {String} :id Entreprise's id
          * @apiParam {String} label Name of entreprise
          * @apiParam {String} email Email of entreprise
          * @apiParam {String} password Password of entreprise
@@ -137,7 +139,7 @@ export default class Server {
          */
         this._app.put('/api/v1/entreprises/:id', accessGranted.restricted, entrepriseController.putEntreprises.bind(entrepriseController));
          /**
-         * @api {delete} /api/v1/entreprises/:entrepriseId Delete entreprise
+         * @api {delete} /api/v1/entreprises/:id #6 Delete one entreprise
          * @apiGroup Entreprises
          * @apiHeader Authorization a valid access token
          * @apiHeaderExample {json} Header-Example:
@@ -149,10 +151,11 @@ export default class Server {
          *     {
          *         "success": true
          *     }
+         * @apiParam {String} :id Entreprise's id
          */
         this._app.delete('/api/v1/entreprises/:id', accessGranted.restricted, entrepriseController.deleteEntreprises.bind(entrepriseController));
          /**
-         * @api {put} /api/v1/entreprises/:entrepriseId/:campaignId/add Add a campaign for a company
+         * @api {put} /api/v1/entreprises/:entrepriseId/:campaignId/add #7 Add a campaign for a company
          * @apiGroup Entreprises
          * @apiHeader Authorization a valid access token
          * @apiHeaderExample {json} Header-Example:
@@ -164,10 +167,12 @@ export default class Server {
          *     {
          *         "success": true
          *     }
+         * @apiParam {String} :entrepriseId Entreprise's id
+         * @apiParam {String} :campaignId Campaign's id
          */
         this._app.put('/api/v1/entreprises/:entrepriseId/:campaignId/add', accessGranted.restricted, entrepriseController.addCampaign.bind(entrepriseController));
          /**
-         * @api {put} /api/v1/entreprises/:entrepriseId/:campaignId/remove Remove a campaign for a company
+         * @api {put} /api/v1/entreprises/:entrepriseId/:campaignId/remove #8 Remove a campaign for a company
          * @apiGroup Entreprises
          * @apiHeader Authorization a valid access token
          * @apiHeaderExample {json} Header-Example:
@@ -179,6 +184,8 @@ export default class Server {
          *     {
          *         "success": true
          *     }
+         * @apiParam {String} :entrepriseId Entreprise's id
+         * @apiParam {String} :campaignId Campaign's id
          */
         this._app.put('/api/v1/entreprises/:entrepriseId/:campaignId/remove', accessGranted.restricted, entrepriseController.removeCampaign.bind(entrepriseController));
     }
