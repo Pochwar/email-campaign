@@ -237,7 +237,7 @@ $(document).ready(function ()
                     {
                         let e;
                         if (error.responseJSON.errmsg.match("duplicate")) {
-                            e = "L'adresse email existe déjà"
+                            e = "L'adresse email est invalide"
                         } else {
                             e = "Une erreur est survenue, si le probleme persiste, c'ets bien dommage..."
                         }
